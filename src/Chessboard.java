@@ -68,7 +68,7 @@ public class Chessboard {
     }
 
     // grid to map bitboard values to drawable pixel dimensions on Jpanel
-    public static Square[] animationGrid = {
+    private static final Square[] animationGrid = {
             new Square(0, 7),
             new Square(1, 7),
             new Square(2, 7),

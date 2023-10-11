@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Piece {
     int position; // 0-63 bitboard
     String type; // P="white pawn" p="black pawn" N="white knight" k="black king"...
@@ -16,7 +14,7 @@ public class Piece {
         return this.type.matches("k|q|b|n|r|p");
     }
 
-    public static Piece[] arrayOfPieces = {
+    public static final Piece[] arrayOfPieces = {
             // 0-15 BLACK
             new Piece(56, "r"),
             new Piece(57, "n"),
