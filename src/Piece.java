@@ -13,7 +13,7 @@ public class Piece {
     }
 
     public Boolean isWhite(){
-        return this.type.matches("K|Q|B|N|R|P");
+        return this.type.matches("k|q|b|n|r|p");
     }
 
     public static Piece[] arrayOfPieces = {
