@@ -94,6 +94,8 @@ public class Chessboard {
         panel.repaint();
     }
 
+
+
     // lookup-table to map bitboard values to drawable pixel dimensions on Jpanel
     private static final Square[] animationLookupTable = {
             new Square(0, 7),

@@ -1,4 +1,7 @@
-public class Piece {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Piece {
     int position; // 0-63 bitboard
     String type; // P="white pawn" p="black pawn" N="white knight" k="black king"...
     boolean hasMoved; // for castle & double pawn moves
@@ -22,6 +25,10 @@ public class Piece {
     public void kill(){
         this.position = 70;
         this.hasBeenSlaughtered = true;
+    }
+
+    public List<Integer> generateLegalSquares(){
+        return new ArrayList<>();
     }
 
 }

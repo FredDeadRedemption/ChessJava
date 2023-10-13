@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.List;
 
 public class Game {
 
@@ -10,13 +11,16 @@ public class Game {
         chessboard.animate();
 
     }
+    public static Boolean whiteToMove = false;
 
     public static void handleClick(int square){
-        Piece choosenPiece = Logic.getPieceFromSquare(square);
+        Piece chosenPiece = Logic.getPieceFromSquare(square);
 
-        if (choosenPiece != null) {
-            System.out.println(choosenPiece.type);
-            System.out.println(choosenPiece.position);
+        if (chosenPiece != null) {
+            System.out.println(((Piece) chosenPiece).type);
+            System.out.println(chosenPiece.position);
+            List<Integer> legalSquares = chosenPiece.generateLegalSquares();
+            System.out.println(chosenPiece.generateLegalSquares());
         }
     }
 
