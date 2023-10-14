@@ -6,11 +6,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Chessboard {
-
+    private static final Color movesColor = new Color(135, 206, 235, 80);
+    private static final Color attackColor = new Color(255, 0, 0, 80);
     JPanel panel;
+    JFrame frame;
     public Chessboard() throws IOException {
         // Jframe
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setBounds(10, 10, 526, 549);
         frame.setTitle("Skak");
 
@@ -24,18 +26,18 @@ public class Chessboard {
                 ind++;
             }
         }
-
-        // override Jpanel paint method to draw chessboard & pieces
+        // override Jpanel paint method
         panel = new JPanel(new GridLayout(8, 8)) {
             @Override
             public void paint(Graphics g) {
+                // paint board
                 boolean lightSquare = true;
                 for (int y = 0; y < 8; y++) {
                     for (int x = 0; x < 8; x++) {
                         if (lightSquare) {
-                            g.setColor(new Color(235, 235, 208));
+                            g.setColor(new Color(200, 200, 195));
                         } else {
-                            g.setColor(new Color(119, 148, 85));
+                            g.setColor(new Color(146, 143, 122));
 
                         }
                         g.fillRect(x * 64, y * 64, 64, 64);
@@ -43,6 +45,24 @@ public class Chessboard {
                     }
                     lightSquare = !lightSquare;
                 }
+                // paint legalSquares
+                if (Game.legalSquaresLoaded){
+                    // initial color
+                    g.setColor(movesColor);
+                    for (Integer legalSquare : Game.legalSquares) {
+                        // highlight enemy squares
+                        if (Logic.hasEvilOccupant(legalSquare)) {
+                            g.setColor(attackColor);
+                        }
+
+                        // highlight legal moves
+                        g.fillRect(animationLookupTable[legalSquare].x * 64, animationLookupTable[legalSquare].y * 64, 64, 64);
+                        g.setColor(movesColor);
+                    }
+                    g.setColor(attackColor);
+                    g.fillRect(animationLookupTable[Game.startSquare].x * 64, animationLookupTable[Game.startSquare].y * 64, 64, 64);
+                }
+                // paint pieces
                 for (int i = 0; i < Game.arrayOfPieces.length; i++) {
                     Piece p = Game.arrayOfPieces[i];
                     if (!p.hasBeenSlaughtered) {
@@ -94,9 +114,7 @@ public class Chessboard {
         panel.repaint();
     }
 
-
-
-    // lookup-table to map bitboard values to drawable pixel dimensions on Jpanel
+    // maps bitboard to pixels
     private static final Square[] animationLookupTable = {
             new Square(0, 7),
             new Square(1, 7),

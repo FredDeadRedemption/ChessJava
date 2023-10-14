@@ -2,9 +2,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class Game {
+    static Chessboard chessboard;
 
     public static void main(String[] args) throws IOException {
-        Chessboard chessboard = new Chessboard();
+        chessboard = new Chessboard();
 
         resetGameState();
 
@@ -12,29 +13,30 @@ public class Game {
 
     }
     public static Boolean whiteToMove = false;
+    public static Boolean legalSquaresLoaded = false;
+    public static List<Integer> legalSquares;
+    public static int startSquare;
 
     public static void handleClick(int square){
+        System.out.println("CLICKED");
         Piece chosenPiece = Logic.getPieceFromSquare(square);
 
         if (chosenPiece != null) {
-            System.out.println(((Piece) chosenPiece).type);
+            System.out.println(chosenPiece.type);
             System.out.println(chosenPiece.position);
-            List<Integer> legalSquares = chosenPiece.generateLegalSquares();
+            startSquare = chosenPiece.position;
+            legalSquares = chosenPiece.generateLegalSquares();
+            legalSquaresLoaded = true;
+            chessboard.animate();
+
+
             System.out.println(chosenPiece.generateLegalSquares());
         }
     }
 
-    // Static methods / vars
+    // All game state contained within
     public static Piece[] arrayOfPieces = new Piece[32];
     public static void resetGameState() {
-        /*
-        for (Piece p : arrayOfPieces) {
-            p.position = p.initPos;
-            p.type = p.initType;
-            p.hasMoved = false;
-            p.hasBeenSlaughtered = false;
-        }
-        */
         // 0-15 Black
         arrayOfPieces[0] = new Rook(56, "r");
         arrayOfPieces[1] = new Knight(57, "n");
