@@ -33,11 +33,11 @@ public class Pawn extends Piece{
         }
 
         //moving forward twice
-        if (!this.hasMoved && Logic.hasNoOccupant(this.position + pawnMoveForward * 2) && Logic.hasNoOccupant(this.position + pawnMoveForward)) {
+        if (!this.hasMoved && !Logic.hasOccupant(this.position + pawnMoveForward * 2) && !Logic.hasOccupant(this.position + pawnMoveForward)) {
             legalSquares.add(this.position + pawnMoveForward * 2);
         }
         //moving forward once
-        if (Logic.hasNoOccupant(this.position + pawnMoveForward)) {
+        if (!Logic.hasOccupant(this.position + pawnMoveForward)) {
             legalSquares.add(this.position + pawnMoveForward);
         }
         //attacking left
@@ -50,6 +50,5 @@ public class Pawn extends Piece{
         }
 
         return Logic.filterLegalSquares(legalSquares);
-
     }
 }

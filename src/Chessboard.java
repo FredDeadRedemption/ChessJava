@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Chessboard {
-    private static final Color movesColor = new Color(135, 206, 235, 80);
-    private static final Color attackColor = new Color(255, 0, 0, 80);
+    Color movesColor = new Color(135, 206, 235, 80);
+    Color attacksColor = new Color(255, 0, 0, 80);
+    Color lightSquareColor = new Color(200, 200, 195);
+    Color darkSquareColor = new Color(146, 143, 122);
     JPanel panel;
     JFrame frame;
     public Chessboard() throws IOException {
@@ -17,12 +19,12 @@ public class Chessboard {
         frame.setTitle("Skak");
 
         // load spritesheet imgs
-        BufferedImage all= ImageIO.read(new File("src/chess.png"));
-        Image[] imgs =new Image[12];
+        BufferedImage all = ImageIO.read(new File("src/chess.png"));
+        Image[] imgs = new Image[12];
         int ind=0;
         for(int y=0;y<400;y+=200){
             for(int x=0;x<1200;x+=200){
-                imgs[ind]=all.getSubimage(x, y, 200, 200).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
+                imgs[ind] = all.getSubimage(x, y, 200, 200).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
                 ind++;
             }
         }
@@ -35,9 +37,9 @@ public class Chessboard {
                 for (int y = 0; y < 8; y++) {
                     for (int x = 0; x < 8; x++) {
                         if (lightSquare) {
-                            g.setColor(new Color(200, 200, 195));
+                            g.setColor(lightSquareColor);
                         } else {
-                            g.setColor(new Color(146, 143, 122));
+                            g.setColor(darkSquareColor);
 
                         }
                         g.fillRect(x * 64, y * 64, 64, 64);
@@ -52,14 +54,15 @@ public class Chessboard {
                     for (Integer legalSquare : Game.legalSquares) {
                         // highlight enemy squares
                         if (Logic.hasEvilOccupant(legalSquare)) {
-                            g.setColor(attackColor);
+                            g.setColor(attacksColor);
                         }
 
                         // highlight legal moves
                         g.fillRect(animationLookupTable[legalSquare].x * 64, animationLookupTable[legalSquare].y * 64, 64, 64);
                         g.setColor(movesColor);
                     }
-                    g.setColor(attackColor);
+                    // highlight selected square
+                    g.setColor(attacksColor);
                     g.fillRect(animationLookupTable[Game.startSquare].x * 64, animationLookupTable[Game.startSquare].y * 64, 64, 64);
                 }
                 // paint pieces

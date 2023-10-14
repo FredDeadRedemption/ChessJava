@@ -31,4 +31,21 @@ public abstract class Piece {
         return new ArrayList<>();
     }
 
+    public boolean turnToMove() {
+        return Game.whiteToMove && this.type.matches("[KQBNRP]") || !Game.whiteToMove && this.type.matches("[kqbnrp]");
+    }
+
+    public void move(int targetSquare) {
+        // capture
+        if (Logic.hasEvilOccupant(targetSquare)){
+            Piece p = Logic.getPieceFromSquare(targetSquare);
+            assert p != null;
+            p.kill();
+        }
+        // make move
+        this.position = targetSquare;
+        this.hasMoved = true;
+        Game.chessboard.animate();
+        Game.whiteToMove = !Game.whiteToMove;
+    }
 }

@@ -22,7 +22,6 @@ public class Knight extends Piece {
             factor = factor * -1;
         }
 
-
         for (int i = legalSquares.size() - 1; i >= 0; i--) {
             if ((index < 2 && legalSquares.get(i) % 8 > index + 2) || (index > 5 && legalSquares.get(i) % 8 < index - 2)) {
                 legalSquares.remove(i);

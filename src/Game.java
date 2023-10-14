@@ -2,35 +2,74 @@ import java.io.IOException;
 import java.util.List;
 
 public class Game {
-    static Chessboard chessboard;
+    public static Chessboard chessboard;
 
     public static void main(String[] args) throws IOException {
         chessboard = new Chessboard();
 
         resetGameState();
-
-        chessboard.animate();
-
     }
-    public static Boolean whiteToMove = false;
+    public static Boolean whiteToMove = true;
     public static Boolean legalSquaresLoaded = false;
     public static List<Integer> legalSquares;
-    public static int startSquare;
+    public static int startSquare; //used in .animate()
+    private static int targetSquare;
+    private static Boolean hasClicked = false;
 
-    public static void handleClick(int square){
+    private static void resetClick(){
+        hasClicked = false;
+        startSquare = 9;
+        targetSquare = 999;
+    }
+
+    public static void handleClick(int clickedSquare){
         System.out.println("CLICKED");
-        Piece chosenPiece = Logic.getPieceFromSquare(square);
+        // first click
+        if(!hasClicked) {
+            // load piece
+            Piece p = Logic.getPieceFromSquare(clickedSquare);
 
-        if (chosenPiece != null) {
-            System.out.println(chosenPiece.type);
-            System.out.println(chosenPiece.position);
-            startSquare = chosenPiece.position;
-            legalSquares = chosenPiece.generateLegalSquares();
-            legalSquaresLoaded = true;
-            chessboard.animate();
+            if (p != null && p.turnToMove()) {
+                // load square
+                startSquare = p.position;
+                legalSquares = p.generateLegalSquares();
+                legalSquaresLoaded = true;
+                chessboard.animate();
+                hasClicked = true;
+                System.out.println(p.generateLegalSquares());
+            } else resetClick();
+        }
+        // second click
+        if (hasClicked){
+            // load piece
+            targetSquare = clickedSquare;
 
+            // choose new start square instead
+            if (Logic.hasFriendlyOccupant(targetSquare)){
+                startSquare = targetSquare;
+                targetSquare = 999;
 
-            System.out.println(chosenPiece.generateLegalSquares());
+                // load piece
+                Piece p = Logic.getPieceFromSquare(startSquare);
+
+                assert p != null;
+                legalSquares = p.generateLegalSquares();
+                legalSquaresLoaded = true;
+                chessboard.animate();
+                hasClicked = true;
+            }
+            //second click valid
+            else if(legalSquares.contains(targetSquare)){
+                // load piece
+                Piece p = Logic.getPieceFromSquare(startSquare);
+
+                assert p != null;
+                p.move(targetSquare);
+                resetClick();
+                legalSquaresLoaded = false;
+                chessboard.animate();
+            }
+            else resetClick();
         }
     }
 
@@ -71,6 +110,5 @@ public class Game {
         arrayOfPieces[29] = new Pawn(13, "P");
         arrayOfPieces[30] = new Pawn(14, "P");
         arrayOfPieces[31] = new Pawn(15, "P");
-
     }
 }

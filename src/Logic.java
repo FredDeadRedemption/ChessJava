@@ -11,40 +11,21 @@ public class Logic {
     }
 
     public static Boolean hasEvilOccupant(int square) {
-        Piece piece = getPieceFromSquare(square);
-        String colors;
-        if (!Game.whiteToMove) {
-            colors = "[kqbnrp]";
-        } else colors = "[KGBNRP]";
+        Piece p = getPieceFromSquare(square);
 
-        if (piece != null) {
-            return piece.type.matches(colors);
-        }
-        return false;
+        return p != null && !p.turnToMove();
     }
 
     public static Boolean hasFriendlyOccupant(int square) {
-        Piece piece = getPieceFromSquare(square);
-        String colors;
-        if (!Game.whiteToMove) {
-            colors = "[KGBNRP]";
-        } else colors = "[kqbnrp]";
+        Piece p = getPieceFromSquare(square);
 
-        if (piece != null) {
-            return piece.type.matches(colors);
-        }
-        return false;
+        return p != null && p.turnToMove();
     }
 
-    public static Boolean hasNoOccupant(int square) {
-        Piece piece = getPieceFromSquare(square);
+    public static Boolean hasOccupant(int square) {
+        Piece p = getPieceFromSquare(square);
 
-        return piece == null;
-    }
-
-    public static Boolean pieceIsInTheWay(int square){
-        Piece j = getPieceFromSquare(square);
-        return j != null;
+        return p != null;
     }
 
     public static List<Integer> filterLegalSquares(List<Integer> legalSquares) {
