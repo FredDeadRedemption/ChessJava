@@ -17,11 +17,6 @@ public abstract class Piece {
         return this.type.matches("[kqbnrp]");
     }
 
-    public void promote() {
-        if(this.type.matches("P")) {this.type = "Q";}
-        if(this.type.matches("p")) {this.type = "q";}
-    }
-
     public void kill(){
         this.position = 70;
         this.hasBeenSlaughtered = true;
