@@ -30,6 +30,20 @@ public class Logic {
         return p != null;
     }
 
+    public static Boolean squareOnEdge(int offset, int square){
+        return switch (offset) {
+            // NW
+            case 7 -> square > 56 || square % 8 == 0; // top edge / left edge
+            // NE
+            case 9 -> square > 56 || square % 8 == 7; // top edge / right edge
+            // SE
+            case -7 -> square < 8 || square % 8 == 7; // bottom edge / right edge
+            // SW
+            case -9 -> square < 8 || square % 8 == 0; // bottom edge / left edge
+            default -> false;
+        };
+    };
+
     public static List<Integer> filterLegalSquares(List<Integer> legalSquares) {
 
         // Filter values outside the board

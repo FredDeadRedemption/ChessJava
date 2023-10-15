@@ -1,9 +1,15 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Bishop extends Piece{
     public Bishop(int position, String type) {
         super(position, type);
+
+        this.offsets.add(7);
+        this.offsets.add(-7);
+        this.offsets.add(9);
+        this.offsets.add(-9);
     }
 
     @Override
@@ -11,57 +17,29 @@ public class Bishop extends Piece{
 
         List<Integer> legalSquares = new ArrayList<>();
 
-        if (this.position > 8) { // if not on lowe edge
-            if (this.position % 8 != 7) { // right edge
-                for (int i = 1; i < 8; i++) {
-
-                    legalSquares.add(this.position - 7 * i);
-
-                    if ((this.position - (7 * i)) % 8 == 7) break;
-                    if ((this.position - (7 * i)) < 8) break;
-                    if ((this.position - (7 * i)) > 55) break;
-                    if (Logic.hasOccupant(this.position - 7 * i)) break;
-                }
-            }
-
-            if (this.position % 8 != 0) { // left edge
-                for (int i = 1; i < 8; i++) {
-
-                    legalSquares.add(this.position - 9 * i);
-
-                    if ((this.position - 9 * i) % 8 == 0) break;
-                    if ((this.position - 9 * i) < 8) break;
-                    if ((this.position - 9 * i) > 55) break;
-                    if (Logic.hasOccupant(this.position - 9 * i)) break;
-                }
-            }
+        // generate sliding move for all offsets
+        for (int offset : this.offsets){
+            legalSquares.addAll(generateSlidingMove(offset));
         }
 
-        if (this.position < 56) { // if not on upper edge
-            if (this.position % 8 != 0) { // left edge
-                for (int i = 1; i < 8; i++) {
-
-                    legalSquares.add(this.position + 7 * i);
-
-                    if ((this.position + 7 * i) % 8 == 0) break;
-                    if ((this.position + 7 * i) < 8) break;
-                    if ((this.position + 7 * i) > 55) break;
-                    if (Logic.hasOccupant(this.position + 7 * i)) break;
-                }
-            }
-
-            if (this.position % 8 != 7) { // right edge
-                for (int i = 1; i < 8; i++) {
-
-                    legalSquares.add(this.position + 9 * i);
-
-                    if ((this.position + 9 * i) % 8 == 7) break;
-                    if ((this.position + 9 * i) < 8) break;
-                    if ((this.position + 9 * i) > 55) break;
-                    if (Logic.hasOccupant(this.position + 9 * i)) break;
-                }
-            }
-        }
         return Logic.filterLegalSquares(legalSquares);
+    }
+
+    private List<Integer> generateSlidingMove(int offset){
+
+        List<Integer> legalSquares = new ArrayList<>();
+
+        // if piece is already on edge
+        if (Logic.squareOnEdge(offset, this.position)) return legalSquares;
+
+        for(int i = 1; i < 8; i++){
+
+            legalSquares.add(this.position + offset * i);
+
+            if (Logic.squareOnEdge(offset, this.position + offset * i)) break; // if move hits edge
+            if (Logic.hasOccupant(this.position + offset * i)) break; // if move hits occupied square
+
+        }
+        return legalSquares;
     }
 }

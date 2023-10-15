@@ -10,10 +10,10 @@ public class Game {
         resetGameState();
     }
     public static Boolean whiteToMove = true;
-    public static Boolean legalSquaresLoaded = false;
-    public static List<Integer> legalSquares;
-    public static int startSquare; //used in .animate()
-    private static int targetSquare;
+    public static Boolean legalSquaresLoaded = false; // for animating in Chessboard.java
+    public static List<Integer> legalSquares; // for animating in Chessboard.java
+    public static int startSquare; // first click / public cuz also used in Chessboard.java
+    private static int targetSquare; // second click
     private static Boolean hasClicked = false;
 
     private static void resetClick(){
@@ -29,27 +29,27 @@ public class Game {
             // load piece
             Piece p = Logic.getPieceFromSquare(clickedSquare);
 
+            // if piece is valid
             if (p != null && p.turnToMove()) {
-                // load square
+                // load square, generate moves, animate moves on board
                 startSquare = p.position;
                 legalSquares = p.generateLegalSquares();
                 legalSquaresLoaded = true;
                 chessboard.animate();
                 hasClicked = true;
                 System.out.println(p.generateLegalSquares());
-            } else resetClick();
+            } else resetClick(); // if piece is invalid
         }
         // second click
         if (hasClicked){
             // load piece
             targetSquare = clickedSquare;
 
-            // choose new start square instead
+            // choose new start square instead if piece is same color as first piece
             if (Logic.hasFriendlyOccupant(targetSquare)){
                 startSquare = targetSquare;
                 targetSquare = 999;
 
-                // load piece
                 Piece p = Logic.getPieceFromSquare(startSquare);
 
                 assert p != null;
@@ -58,7 +58,7 @@ public class Game {
                 chessboard.animate();
                 hasClicked = true;
             }
-            //second click valid
+            // second click valid
             else if(legalSquares.contains(targetSquare)){
                 // load piece
                 Piece p = Logic.getPieceFromSquare(startSquare);
@@ -69,6 +69,7 @@ public class Game {
                 legalSquaresLoaded = false;
                 chessboard.animate();
             }
+            // second click invalid
             else {
                 resetClick();
                 legalSquaresLoaded = false;

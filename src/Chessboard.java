@@ -77,7 +77,7 @@ public class Chessboard {
                             case "p", "P" -> 5;
                             default -> 0;
                         };
-                        if (p.isWhite()) {
+                        if (!p.isWhite()) {
                             ind += 6;
                         }
                         g.drawImage(imgs[ind], animationLookupTable[p.position].x * 64, animationLookupTable[p.position].y * 64, this);
