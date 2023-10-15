@@ -24,7 +24,9 @@ public class Logic {
 
     public static Boolean hasOccupant(int square) {
         Piece p = getPieceFromSquare(square);
-
+        if(p != null){
+            System.out.println("occupant on: " + square);
+        }
         return p != null;
     }
 

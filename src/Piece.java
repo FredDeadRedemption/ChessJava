@@ -27,7 +27,9 @@ public abstract class Piece {
     }
 
     public boolean turnToMove() {
-        return Game.whiteToMove && this.type.matches("[KQBNRP]") || !Game.whiteToMove && this.type.matches("[kqbnrp]");
+        if(Game.whiteToMove && this.type.matches("[KQBNRP]")){
+            return true;
+        } else return !Game.whiteToMove && this.type.matches("[kqbnrp]");
     }
 
     public void move(int targetSquare) {

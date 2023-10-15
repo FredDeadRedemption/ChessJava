@@ -69,7 +69,11 @@ public class Game {
                 legalSquaresLoaded = false;
                 chessboard.animate();
             }
-            else resetClick();
+            else {
+                resetClick();
+                legalSquaresLoaded = false;
+                chessboard.animate();
+            }
         }
     }
 

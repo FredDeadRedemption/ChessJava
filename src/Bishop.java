@@ -11,34 +11,57 @@ public class Bishop extends Piece{
 
         List<Integer> legalSquares = new ArrayList<>();
 
-        for (int i = 0; i < 7; i++) {
-            if (this.position % 8 == i) break;
-            legalSquares.add(this.position - -7 * (i + 1));
+        if (this.position > 8) { // if not on lowe edge
+            if (this.position % 8 != 7) { // right edge
+                for (int i = 1; i < 8; i++) {
 
-            if (Logic.hasOccupant(i)) break;
+                    legalSquares.add(this.position - 7 * i);
+
+                    if ((this.position - (7 * i)) % 8 == 7) break;
+                    if ((this.position - (7 * i)) < 8) break;
+                    if ((this.position - (7 * i)) > 55) break;
+                    if (Logic.hasOccupant(this.position - 7 * i)) break;
+                }
+            }
+
+            if (this.position % 8 != 0) { // left edge
+                for (int i = 1; i < 8; i++) {
+
+                    legalSquares.add(this.position - 9 * i);
+
+                    if ((this.position - 9 * i) % 8 == 0) break;
+                    if ((this.position - 9 * i) < 8) break;
+                    if ((this.position - 9 * i) > 55) break;
+                    if (Logic.hasOccupant(this.position - 9 * i)) break;
+                }
+            }
         }
 
-        for (int i = 7; i < 14; i++) {
-            if (7 - (this.position % 8) == i % 7) break;
-            legalSquares.add(this.position - -9 * ((i % 7) + 1));
+        if (this.position < 56) { // if not on upper edge
+            if (this.position % 8 != 0) { // left edge
+                for (int i = 1; i < 8; i++) {
 
-            if (Logic.hasOccupant(i)) break;
+                    legalSquares.add(this.position + 7 * i);
+
+                    if ((this.position + 7 * i) % 8 == 0) break;
+                    if ((this.position + 7 * i) < 8) break;
+                    if ((this.position + 7 * i) > 55) break;
+                    if (Logic.hasOccupant(this.position + 7 * i)) break;
+                }
+            }
+
+            if (this.position % 8 != 7) { // right edge
+                for (int i = 1; i < 8; i++) {
+
+                    legalSquares.add(this.position + 9 * i);
+
+                    if ((this.position + 9 * i) % 8 == 7) break;
+                    if ((this.position + 9 * i) < 8) break;
+                    if ((this.position + 9 * i) > 55) break;
+                    if (Logic.hasOccupant(this.position + 9 * i)) break;
+                }
+            }
         }
-
-        for (int i = 14; i < 21; i++) {
-            if (7 - (this.position % 8) == i % 7) break;
-            legalSquares.add(this.position - 7 * ((i % 7) + 1));
-
-            if (Logic.hasOccupant(i)) break;
-        }
-
-        for (int i = 21; i < 28; i++) {
-            if (this.position % 8 == i % 7) break;
-            legalSquares.add(this.position - 9 * ((i % 7) + 1));
-
-            if (Logic.hasOccupant(i)) break;
-        }
-
         return Logic.filterLegalSquares(legalSquares);
     }
 }
