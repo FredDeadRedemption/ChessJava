@@ -40,6 +40,14 @@ public class Logic {
             case -7 -> square < 8 || square % 8 == 7; // bottom edge / right edge
             // SW
             case -9 -> square < 8 || square % 8 == 0; // bottom edge / left edge
+            // N
+            case 8 -> square > 56; // top edge
+            // S
+            case -8 -> square < 8; // bottom edge
+            // E
+            case 1 -> square % 8 == 7; // right edge
+            // W
+            case -1 -> square % 8 == 0; // left edge
             default -> false;
         };
     };

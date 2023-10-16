@@ -20,6 +20,8 @@ public class Game {
         hasClicked = false;
         startSquare = 9;
         targetSquare = 999;
+        legalSquaresLoaded = false;
+        chessboard.animate();
     }
 
     public static void handleClick(int clickedSquare){
@@ -70,11 +72,7 @@ public class Game {
                 chessboard.animate();
             }
             // second click invalid
-            else {
-                resetClick();
-                legalSquaresLoaded = false;
-                chessboard.animate();
-            }
+            else resetClick();
         }
     }
 

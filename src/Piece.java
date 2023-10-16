@@ -34,6 +34,25 @@ public abstract class Piece {
         } else return !Game.whiteToMove && !this.isWhite();
     }
 
+    // used for rook - bishop - queen
+    public List<Integer> generateSlidingMove(int offset){
+
+        List<Integer> legalSquares = new ArrayList<>();
+
+        // if piece is already on edge
+        if (Logic.squareOnEdge(offset, this.position)) return legalSquares;
+
+        for(int i = 1; i < 8; i++){
+
+            legalSquares.add(this.position + offset * i);
+
+            if (Logic.squareOnEdge(offset, this.position + offset * i)) break; // if move hits edge
+            if (Logic.hasOccupant(this.position + offset * i)) break; // if move hits occupied square
+
+        }
+        return legalSquares;
+    }
+
     public void move(int targetSquare) {
         // capture if enemy
         if (Logic.hasEvilOccupant(targetSquare)){

@@ -4,6 +4,11 @@ import java.util.List;
 public class Rook extends Piece{
     public Rook(int position, String type) {
         super(position, type);
+
+        this.offsets.add(8);
+        this.offsets.add(-8);
+        this.offsets.add(1);
+        this.offsets.add(-1);
     }
 
     @Override
@@ -11,31 +16,10 @@ public class Rook extends Piece{
 
         List<Integer> legalSquares = new ArrayList<>();
 
-        for (int i = 0; i < 7; i++) {
-            legalSquares.add(this.position - 8 * (i + 1));
-
-            if (Logic.hasOccupant(i)) break;
+        // generate sliding move for all offsets
+        for (int offset : this.offsets){
+            legalSquares.addAll(this.generateSlidingMove(offset));
         }
-
-        for (int i = 7; i < 14; i++) {
-            legalSquares.add(this.position - -8 * ((i % 7) + 1));
-
-            if (Logic.hasOccupant(i)) break;
-        }
-        for (int i = 14; i < 21; i++) {
-            if (this.position % 8 == i % 7) break;
-            legalSquares.add(this.position - ((i % 7) + 1));
-
-            if (Logic.hasOccupant(i)) break;
-        }
-
-        for (int i = 21; i < 29; i++) {
-            if (7 - (this.position % 8) == i % 7) break;
-            legalSquares.add(this.position - -1 * ((i % 7) + 1));
-
-            if (Logic.hasOccupant(i)) break;
-        }
-
 
         return Logic.filterLegalSquares(legalSquares);
     }
