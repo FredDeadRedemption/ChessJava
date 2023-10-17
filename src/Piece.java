@@ -30,9 +30,9 @@ public abstract class Piece {
 
     // TODO: remove this func
     public boolean turnToMove() {
-        if(Game.whiteToMove && this.isWhite()){
+        if(ClickHandler.whiteToMove && this.isWhite()){
             return true;
-        } else return !Game.whiteToMove && !this.isWhite();
+        } else return !ClickHandler.whiteToMove && !this.isWhite();
     }
 
     // used for rook - bishop - queen

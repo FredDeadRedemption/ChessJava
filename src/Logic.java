@@ -4,7 +4,7 @@ import java.util.Objects;
 public class Logic {
 
     public static Piece getPieceFromSquare(int square){
-        for (Piece p : Game.pieceLookupTable) {
+        for (Piece p : Game.state) {
             if (p.position == square) {return p;}
         }
         return null;

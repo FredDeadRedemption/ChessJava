@@ -48,10 +48,10 @@ public class Chessboard {
                     squareIsLight = !squareIsLight;
                 }
                 // paint legalSquares
-                if (Game.legalSquaresLoaded){
+                if (ClickHandler.legalSquaresLoaded){
                     // initial color
                     g.setColor(movesColor);
-                    for (Integer legalSquare : Game.legalSquares) {
+                    for (Integer legalSquare : ClickHandler.legalSquares) {
                         // highlight enemy squares
                         if (Logic.hasEvilOccupant(legalSquare)) {
                             g.setColor(attacksColor);
@@ -63,11 +63,11 @@ public class Chessboard {
                     }
                     // highlight selected square
                     g.setColor(attacksColor);
-                    g.fillRect(animationLookupTable[Game.startSquare].x * 64, animationLookupTable[Game.startSquare].y * 64, 64, 64);
+                    g.fillRect(animationLookupTable[ClickHandler.startSquare].x * 64, animationLookupTable[ClickHandler.startSquare].y * 64, 64, 64);
                 }
                 // paint pieces
-                for (int i = 0; i < Game.pieceLookupTable.length; i++) {
-                    Piece p = Game.pieceLookupTable[i];
+                for (int i = 0; i < Game.state.length; i++) {
+                    Piece p = Game.state[i];
                     if (!p.hasBeenSlaughtered) {
                         int ind = switch (p.type) {
                             case "q", "Q" -> 1;
@@ -99,7 +99,7 @@ public class Chessboard {
 
                 row = i + 1;
                 final int clickedSquare = x + j - 7;
-                buttons[i][j].addActionListener(e -> Game.handleClick(clickedSquare));
+                buttons[i][j].addActionListener(e -> ClickHandler.handleClick(clickedSquare));
             }
             // retard math
             if (row != 7) {
