@@ -1,7 +1,8 @@
 import java.util.List;
-import java.util.Objects;
 
 public class Logic {
+
+    // collection of logical utility methods
 
     public static Piece getPieceFromSquare(int square){
         for (Piece p : Game.state) {
@@ -30,9 +31,7 @@ public class Logic {
 
     public static Boolean hasOccupant(int square) {
         Piece p = getPieceFromSquare(square);
-        if(p != null){
-            System.out.println("occupant on: " + square);
-        }
+
         return p != null;
     }
 
@@ -58,19 +57,16 @@ public class Logic {
         };
     }
 
-    public static List<Integer> filterLegalSquares(List<Integer> legalSquares, Piece p) {
+    public static List<Integer> filterMoves(List<Integer> moves, Piece p) {
 
-        // Filter values outside the board
-        for (int i = legalSquares.size() - 1; i >= 0; i--) {
-            int square = legalSquares.get(i);
+        // Filter moves outside the board + moves with friendly pieces
+        for (int i = moves.size() - 1; i >= 0; i--) {
+            int square = moves.get(i);
             if (square < 0 || square > 63 || Logic.hasFriendlyOccupant(square, p)) {
-                legalSquares.remove(i);
+                moves.remove(i);
             }
         }
 
-        // Filter empty values
-        legalSquares.removeIf(Objects::isNull);
-
-        return legalSquares;
+        return moves;
     }
 }

@@ -30,7 +30,9 @@ public class ClickHandler {
             if (p != null && (p.isWhite() && Game.whiteToMove)) {
                 // load square, generate moves, animate moves on board
                 startSquare = p.position;
-                legalSquares = p.generateMoves();
+                p.generateMoves();
+                System.out.println("MOVES: " + p.moves);
+                legalSquares = p.moves;
                 movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
@@ -53,7 +55,8 @@ public class ClickHandler {
                 p = Logic.getPieceFromSquare(startSquare);
 
                 assert p != null;
-                legalSquares = p.generateMoves();
+                p.generateMoves();
+                legalSquares = p.moves;
                 movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;

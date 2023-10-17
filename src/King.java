@@ -7,27 +7,27 @@ public class King extends Piece{
     }
 
     @Override
-    public List<Integer> generateMoves() {
+    public void generateMoves() {
 
-        List<Integer> legalSquares = new ArrayList<>();
+        List<Integer> moves = new ArrayList<>();
 
         // right
         if (this.position % 8 != 7) {
-            legalSquares.add(this.position + 9);
-            legalSquares.add(this.position + 1);
-            legalSquares.add(this.position - 7);
+            moves.add(this.position + 9);
+            moves.add(this.position + 1);
+            moves.add(this.position - 7);
         }
         // left
         if (this.position % 8 != 0) {
-            legalSquares.add(this.position + 7);
-            legalSquares.add(this.position - 1);
-            legalSquares.add(this.position - 9);
+            moves.add(this.position + 7);
+            moves.add(this.position - 1);
+            moves.add(this.position - 9);
         }
         // up
-        if (this.position < 56) legalSquares.add(this.position + 8);
+        if (this.position < 56) moves.add(this.position + 8);
         // down
-        if (this.position > 8) legalSquares.add(this.position - 8);
+        if (this.position > 8) moves.add(this.position - 8);
 
-        return Logic.filterLegalSquares(legalSquares, this);
+        this.moves = Logic.filterMoves(moves, this);
     }
 }

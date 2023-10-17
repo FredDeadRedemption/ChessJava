@@ -41,7 +41,9 @@ public class Game {
 
             if (!p.hasBeenSlaughtered){
 
-                blackMoves.add(p.generateMoves()); // add list of all moves for that piece
+                p.generateMoves();
+
+                blackMoves.add(p.moves); // add list of all moves for that piece
             } else blackMoves.add(new ArrayList<>()); // add empty list if piece is dead
         }
     }

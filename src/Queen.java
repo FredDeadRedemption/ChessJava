@@ -16,15 +16,15 @@ public class Queen extends Piece{
     }
 
     @Override
-    public List<Integer> generateMoves() {
+    public void generateMoves() {
 
-        List<Integer> legalSquares = new ArrayList<>();
+        List<Integer> moves = new ArrayList<>();
 
         // generate sliding move for all offsets
         for (int offset : this.offsets){
-            legalSquares.addAll(this.generateSlidingMove(offset));
+            moves.addAll(this.generateSlidingMoves(offset));
         }
 
-        return Logic.filterLegalSquares(legalSquares, this);
+        this.moves = Logic.filterMoves(moves, this);
     }
 }

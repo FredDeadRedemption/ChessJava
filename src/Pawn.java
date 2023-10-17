@@ -8,9 +8,9 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public List<Integer> generateMoves(){
+    public void generateMoves(){
 
-        List<Integer> legalSquares = new ArrayList<>();
+        List<Integer> moves = new ArrayList<>();
         int pawnAttackLeft;
         int pawnAttackRight;
         int pawnMoveForward;
@@ -34,21 +34,21 @@ public class Pawn extends Piece{
 
         //moving forward twice
         if (!this.hasMoved && !Logic.hasOccupant(this.position + pawnMoveForward * 2) && !Logic.hasOccupant(this.position + pawnMoveForward)) {
-            legalSquares.add(this.position + pawnMoveForward * 2);
+            moves.add(this.position + pawnMoveForward * 2);
         }
         //moving forward once
         if (!Logic.hasOccupant(this.position + pawnMoveForward)) {
-            legalSquares.add(this.position + pawnMoveForward);
+            moves.add(this.position + pawnMoveForward);
         }
         //attacking left
         if (Logic.hasEvilOccupant(this.position + pawnAttackLeft, this) && this.position % 8 != fileLeft) {
-            legalSquares.add(this.position + pawnAttackLeft);
+            moves.add(this.position + pawnAttackLeft);
         }
         //attacking right
         if (Logic.hasEvilOccupant(this.position + pawnAttackRight, this) && this.position % 8 != fileRight) {
-            legalSquares.add(this.position + pawnAttackRight);
+            moves.add(this.position + pawnAttackRight);
         }
 
-        return Logic.filterLegalSquares(legalSquares, this);
+        this.moves = Logic.filterMoves(moves, this);
     }
 }
