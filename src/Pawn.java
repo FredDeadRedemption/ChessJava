@@ -8,7 +8,7 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public List<Integer> generateLegalSquares(){
+    public List<Integer> generateMoves(){
 
         List<Integer> legalSquares = new ArrayList<>();
         int pawnAttackLeft;
@@ -41,14 +41,14 @@ public class Pawn extends Piece{
             legalSquares.add(this.position + pawnMoveForward);
         }
         //attacking left
-        if (Logic.hasEvilOccupant(this.position + pawnAttackLeft) && this.position % 8 != fileLeft) {
+        if (Logic.hasEvilOccupant(this.position + pawnAttackLeft, this) && this.position % 8 != fileLeft) {
             legalSquares.add(this.position + pawnAttackLeft);
         }
         //attacking right
-        if (Logic.hasEvilOccupant(this.position + pawnAttackRight) && this.position % 8 != fileRight) {
+        if (Logic.hasEvilOccupant(this.position + pawnAttackRight, this) && this.position % 8 != fileRight) {
             legalSquares.add(this.position + pawnAttackRight);
         }
 
-        return Logic.filterLegalSquares(legalSquares);
+        return Logic.filterLegalSquares(legalSquares, this);
     }
 }

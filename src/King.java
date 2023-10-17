@@ -7,7 +7,7 @@ public class King extends Piece{
     }
 
     @Override
-    public List<Integer> generateLegalSquares() {
+    public List<Integer> generateMoves() {
 
         List<Integer> legalSquares = new ArrayList<>();
 
@@ -28,6 +28,6 @@ public class King extends Piece{
         // down
         if (this.position > 8) legalSquares.add(this.position - 8);
 
-        return Logic.filterLegalSquares(legalSquares);
+        return Logic.filterLegalSquares(legalSquares, this);
     }
 }

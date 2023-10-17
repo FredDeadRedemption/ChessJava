@@ -53,7 +53,7 @@ public class Chessboard {
                     g.setColor(movesColor);
                     for (Integer legalSquare : ClickHandler.legalSquares) {
                         // highlight enemy squares
-                        if (Logic.hasEvilOccupant(legalSquare)) {
+                        if (Logic.hasEvilOccupant(legalSquare, Logic.getPieceFromSquare(legalSquare))) {
                             g.setColor(attacksColor);
                         }
 

@@ -10,6 +10,8 @@ public class Game {
 
         resetGameState();
     }
+
+    public static Boolean whiteToMove = true; // flips on successful move
     static List<List<Integer>> blackMoves = new ArrayList<>(15); // array of lists, index corresponding to piece
 
     public static void evilPlay(){
@@ -24,7 +26,7 @@ public class Game {
 
         p.move(randomMove);
 
-        ClickHandler.whiteToMove = !ClickHandler.whiteToMove;
+        whiteToMove = !whiteToMove;
 
         System.out.println("RAND PIECE: " + p + "\nRAND MOVE:" + randomMove);
     }
@@ -39,7 +41,7 @@ public class Game {
 
             if (!p.hasBeenSlaughtered){
 
-                blackMoves.add(p.generateLegalSquares()); // add list of all moves for that piece
+                blackMoves.add(p.generateMoves()); // add list of all moves for that piece
             } else blackMoves.add(new ArrayList<>()); // add empty list if piece is dead
         }
     }

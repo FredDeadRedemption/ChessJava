@@ -12,7 +12,7 @@ public class Rook extends Piece{
     }
 
     @Override
-    public List<Integer> generateLegalSquares() {
+    public List<Integer> generateMoves() {
 
         List<Integer> legalSquares = new ArrayList<>();
 
@@ -21,6 +21,6 @@ public class Rook extends Piece{
             legalSquares.addAll(this.generateSlidingMove(offset));
         }
 
-        return Logic.filterLegalSquares(legalSquares);
+        return Logic.filterLegalSquares(legalSquares, this);
     }
 }

@@ -26,16 +26,10 @@ public abstract class Piece {
         this.hasBeenSlaughtered = true;
     }
 
-    public List<Integer> generateLegalSquares(){
+    public List<Integer> generateMoves(){
         return new ArrayList<>();
     }
 
-    // TODO: remove this func
-    public boolean turnToMove() {
-        if(ClickHandler.whiteToMove && this.isWhite()){
-            return true;
-        } else return !ClickHandler.whiteToMove && !this.isWhite();
-    }
 
     // used for rook - bishop - queen
     public List<Integer> generateSlidingMove(int offset){
@@ -58,7 +52,7 @@ public abstract class Piece {
 
     public void move(int targetSquare) {
         // if enemy, kill it
-        if (Logic.hasEvilOccupant(targetSquare)){
+        if (Logic.hasEvilOccupant(targetSquare, this)){
             Piece p = Logic.getPieceFromSquare(targetSquare);
             assert p != null;
             p.kill();

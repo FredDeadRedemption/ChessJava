@@ -13,43 +13,47 @@ public class ClickHandler {
     private static Boolean hasClicked = false;
 
     public static int startSquare; // first click / public cuz also used in Chessboard.paint()
-
-    public static Boolean whiteToMove = true; // TODO remove
     public static List<Integer> legalSquares = new ArrayList<>(); // TODO make a property of piece
     public static Boolean movesAnimationLoaded = false; // for animating in Chessboard.paint()
 
     public static void handleClick(int clickedSquare){
 
         int targetSquare;
+        Piece p = null;
 
-        // first click
+        // handles first click
         if(!hasClicked) {
             // load piece
-            Piece p = Logic.getPieceFromSquare(clickedSquare);
+            p = Logic.getPieceFromSquare(clickedSquare);
 
             // if piece is valid
-            if (p != null && p.turnToMove()) {
+            if (p != null && (p.isWhite() && Game.whiteToMove)) {
                 // load square, generate moves, animate moves on board
                 startSquare = p.position;
-                legalSquares = p.generateLegalSquares();
+                legalSquares = p.generateMoves();
                 movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
             } else resetClick(); // if piece is invalid
         }
-        // second click
+        // handles second click
         if (hasClicked){
-            // load piece
+            System.out.println(p);
+            // load target square
             targetSquare = clickedSquare;
 
+            // load piece
+            p = Logic.getPieceFromSquare(startSquare);
+
             // choose new start square instead if piece is same color as first piece
-            if (Logic.hasFriendlyOccupant(targetSquare)){
+            if (Logic.hasFriendlyOccupant(targetSquare, p)){
+                System.out.println("FRIENDLY DUDE HERE");
                 startSquare = targetSquare;
 
-                Piece p = Logic.getPieceFromSquare(startSquare);
+                p = Logic.getPieceFromSquare(startSquare);
 
                 assert p != null;
-                legalSquares = p.generateLegalSquares();
+                legalSquares = p.generateMoves();
                 movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
@@ -57,14 +61,14 @@ public class ClickHandler {
             // second click valid
             else if(legalSquares.contains(targetSquare)){
                 // load piece
-                Piece p = Logic.getPieceFromSquare(startSquare);
+                p = Logic.getPieceFromSquare(startSquare);
 
                 assert p != null;
                 p.move(targetSquare);
                 resetClick();
                 movesAnimationLoaded = false;
                 Game.chessboard.animate();
-                whiteToMove = !whiteToMove;
+                Game.whiteToMove = !Game.whiteToMove;
                 Game.evilPlay();
             }
             // second click invalid

@@ -10,16 +10,22 @@ public class Logic {
         return null;
     }
 
-    public static Boolean hasEvilOccupant(int square) {
-        Piece p = getPieceFromSquare(square);
+    public static Boolean hasEvilOccupant(int square, Piece p) {
+        Piece targetp = getPieceFromSquare(square);
 
-        return p != null && !p.turnToMove();
+        if (targetp != null && p != null) {
+            return ((targetp.isWhite() && !p.isWhite()) || (!targetp.isWhite() && p.isWhite()));
+        }
+        return false;
     }
 
-    public static Boolean hasFriendlyOccupant(int square) {
-        Piece p = getPieceFromSquare(square);
+    public static Boolean hasFriendlyOccupant(int square, Piece p) {
+        Piece targetp = getPieceFromSquare(square);
 
-        return p != null && p.turnToMove();
+        if (targetp != null && p != null) {
+            return ((targetp.isWhite() && p.isWhite()) || (!targetp.isWhite() && !p.isWhite()));
+        }
+        return false;
     }
 
     public static Boolean hasOccupant(int square) {
@@ -52,12 +58,12 @@ public class Logic {
         };
     }
 
-    public static List<Integer> filterLegalSquares(List<Integer> legalSquares) {
+    public static List<Integer> filterLegalSquares(List<Integer> legalSquares, Piece p) {
 
         // Filter values outside the board
         for (int i = legalSquares.size() - 1; i >= 0; i--) {
             int square = legalSquares.get(i);
-            if (square < 0 || square > 63 || Logic.hasFriendlyOccupant(square)) {
+            if (square < 0 || square > 63 || Logic.hasFriendlyOccupant(square, p)) {
                 legalSquares.remove(i);
             }
         }
