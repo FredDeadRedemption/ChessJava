@@ -48,7 +48,7 @@ public class Chessboard {
                     squareIsLight = !squareIsLight;
                 }
                 // paint legalSquares
-                if (ClickHandler.legalSquaresLoaded){
+                if (ClickHandler.movesAnimationLoaded){
                     // initial color
                     g.setColor(movesColor);
                     for (Integer legalSquare : ClickHandler.legalSquares) {

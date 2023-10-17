@@ -6,7 +6,7 @@ public class ClickHandler {
     private static void resetClick(){
         hasClicked = false;
         startSquare = 9;
-        legalSquaresLoaded = false;
+        movesAnimationLoaded = false;
         Game.chessboard.animate();
     }
 
@@ -16,7 +16,7 @@ public class ClickHandler {
 
     public static Boolean whiteToMove = true; // TODO remove
     public static List<Integer> legalSquares = new ArrayList<>(); // TODO make a property of piece
-    public static Boolean legalSquaresLoaded = false; // for animating in Chessboard.paint()
+    public static Boolean movesAnimationLoaded = false; // for animating in Chessboard.paint()
 
     public static void handleClick(int clickedSquare){
 
@@ -32,7 +32,7 @@ public class ClickHandler {
                 // load square, generate moves, animate moves on board
                 startSquare = p.position;
                 legalSquares = p.generateLegalSquares();
-                legalSquaresLoaded = true;
+                movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
             } else resetClick(); // if piece is invalid
@@ -50,7 +50,7 @@ public class ClickHandler {
 
                 assert p != null;
                 legalSquares = p.generateLegalSquares();
-                legalSquaresLoaded = true;
+                movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
             }
@@ -62,7 +62,7 @@ public class ClickHandler {
                 assert p != null;
                 p.move(targetSquare);
                 resetClick();
-                legalSquaresLoaded = false;
+                movesAnimationLoaded = false;
                 Game.chessboard.animate();
                 whiteToMove = !whiteToMove;
                 Game.evilPlay();
