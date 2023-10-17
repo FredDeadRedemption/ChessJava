@@ -3,7 +3,7 @@ import java.util.List;
 
 public abstract class Piece {
     int position; // 0-63 bitboard
-    List<Integer> offsets; // determines move pattern
+    List<Integer> offsets; // to determines move pattern
     String type; // P="white pawn" p="black pawn" N="white knight" k="black king"...
     boolean hasMoved; // for castle & double pawn moves
     boolean hasBeenSlaughtered; // for castle
@@ -28,6 +28,7 @@ public abstract class Piece {
         return new ArrayList<>();
     }
 
+    // TODO: remove this func
     public boolean turnToMove() {
         if(Game.whiteToMove && this.isWhite()){
             return true;
@@ -39,7 +40,7 @@ public abstract class Piece {
 
         List<Integer> legalSquares = new ArrayList<>();
 
-        // if piece is already on edge
+        // if piece is already on edge based on its offset
         if (Logic.squareOnEdge(offset, this.position)) return legalSquares;
 
         for(int i = 1; i < 8; i++){
@@ -54,7 +55,7 @@ public abstract class Piece {
     }
 
     public void move(int targetSquare) {
-        // capture if enemy
+        // if enemy, kill it
         if (Logic.hasEvilOccupant(targetSquare)){
             Piece p = Logic.getPieceFromSquare(targetSquare);
             assert p != null;
@@ -63,7 +64,5 @@ public abstract class Piece {
         // make move
         this.position = targetSquare;
         this.hasMoved = true;
-        Game.chessboard.animate();
-        Game.whiteToMove = !Game.whiteToMove;
     }
 }

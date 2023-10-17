@@ -66,8 +66,8 @@ public class Chessboard {
                     g.fillRect(animationLookupTable[Game.startSquare].x * 64, animationLookupTable[Game.startSquare].y * 64, 64, 64);
                 }
                 // paint pieces
-                for (int i = 0; i < Game.arrayOfPieces.length; i++) {
-                    Piece p = Game.arrayOfPieces[i];
+                for (int i = 0; i < Game.pieceLookupTable.length; i++) {
+                    Piece p = Game.pieceLookupTable[i];
                     if (!p.hasBeenSlaughtered) {
                         int ind = switch (p.type) {
                             case "q", "Q" -> 1;
@@ -118,7 +118,7 @@ public class Chessboard {
     }
 
     // maps bitboard to pixels
-    private static final Square[] animationLookupTable = {
+    private static final Square[] animationLookupTable = { // TODO make this a function
             new Square(0, 7),
             new Square(1, 7),
             new Square(2, 7),

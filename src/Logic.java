@@ -4,7 +4,7 @@ import java.util.Objects;
 public class Logic {
 
     public static Piece getPieceFromSquare(int square){
-        for (Piece p : Game.arrayOfPieces) {
+        for (Piece p : Game.pieceLookupTable) {
             if (p.position == square) {return p;}
         }
         return null;
@@ -50,7 +50,7 @@ public class Logic {
             case -1 -> square % 8 == 0; // left edge
             default -> false;
         };
-    };
+    }
 
     public static List<Integer> filterLegalSquares(List<Integer> legalSquares) {
 
