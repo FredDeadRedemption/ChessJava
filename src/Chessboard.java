@@ -33,19 +33,19 @@ public class Chessboard {
             @Override
             public void paint(Graphics g) {
                 // paint board
-                boolean lightSquare = true;
+                boolean squareIsLight = true;
                 for (int y = 0; y < 8; y++) {
                     for (int x = 0; x < 8; x++) {
-                        if (lightSquare) {
+                        if (squareIsLight) {
                             g.setColor(lightSquareColor);
                         } else {
                             g.setColor(darkSquareColor);
 
                         }
                         g.fillRect(x * 64, y * 64, 64, 64);
-                        lightSquare = !lightSquare;
+                        squareIsLight = !squareIsLight;
                     }
-                    lightSquare = !lightSquare;
+                    squareIsLight = !squareIsLight;
                 }
                 // paint legalSquares
                 if (Game.legalSquaresLoaded){
