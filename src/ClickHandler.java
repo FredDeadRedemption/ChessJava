@@ -11,9 +11,8 @@ public class ClickHandler {
     }
 
     private static Boolean hasClicked = false;
-
     public static int startSquare; // first click / public cuz also used in Chessboard.paint()
-    public static List<Integer> legalSquares = new ArrayList<>(); // TODO make a property of piece
+    public static List<Integer> movesAnimation = new ArrayList<>(); // for animating in Chessboard.paint()
     public static Boolean movesAnimationLoaded = false; // for animating in Chessboard.paint()
 
     public static void handleClick(int clickedSquare){
@@ -32,7 +31,7 @@ public class ClickHandler {
                 startSquare = p.position;
                 p.generateMoves();
                 System.out.println("MOVES: " + p.moves);
-                legalSquares = p.moves;
+                movesAnimation = p.moves;
                 movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
@@ -56,26 +55,29 @@ public class ClickHandler {
 
                 assert p != null;
                 p.generateMoves();
-                legalSquares = p.moves;
+                movesAnimation = p.moves;
                 movesAnimationLoaded = true;
                 Game.chessboard.animate();
                 hasClicked = true;
             }
             // second click valid
-            else if(legalSquares.contains(targetSquare)){
-                // load piece
-                p = Logic.getPieceFromSquare(startSquare);
-
+            else {
                 assert p != null;
-                p.move(targetSquare);
-                resetClick();
-                movesAnimationLoaded = false;
-                Game.chessboard.animate();
-                Game.whiteToMove = !Game.whiteToMove;
-                Game.evilPlay();
+                if(p.moves.contains(targetSquare)){
+                    // load piece
+                    p = Logic.getPieceFromSquare(startSquare);
+
+                    assert p != null;
+                    p.move(targetSquare);
+                    resetClick();
+                    movesAnimationLoaded = false;
+                    Game.chessboard.animate();
+                    Game.whiteToMove = !Game.whiteToMove;
+                    Game.evilPlay();
+                }
+                // second click invalid
+                else resetClick();
             }
-            // second click invalid
-            else resetClick();
         }
     }
 }

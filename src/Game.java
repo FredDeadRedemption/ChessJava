@@ -12,6 +12,7 @@ public class Game {
     }
 
     public static Boolean whiteToMove = true; // flips on successful move
+
     static List<List<Integer>> blackMoves = new ArrayList<>(15); // array of lists, index corresponding to piece
 
     public static void evilPlay(){
@@ -48,8 +49,11 @@ public class Game {
         }
     }
 
-    // All game state contained within
+    // ALL game state contained within this array
+    // idea is to be able to take a snapshot of the state
+    // also functions as a lookup-table for individual pieces
     public static Piece[] state = new Piece[32];
+
     public static void resetGameState() {
         // 0-15 Black
         state[0] = new Rook(56, "r");
