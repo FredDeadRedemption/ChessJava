@@ -50,8 +50,11 @@ public class Game {
     }
 
     // ALL game state contained within this array
-    // idea is to be able to take a snapshot of the state
-    // also functions as a lookup-table for individual pieces
+    //
+    // the idea is to be able to take a snapshot of the game state. making it easier to search depths and calculate inCheck()
+    // without having to make an unMove method
+    //
+    // note: this also functions as a lookup-table for individual pieces
     public static Piece[] state = new Piece[32];
 
     public static void resetGameState() {

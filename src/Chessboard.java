@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Chessboard {
+public class Chessboard extends JComponent {
+    int SQUARE_SIZE = 64;
     Color movesColor = new Color(135, 206, 235, 80);
     Color attacksColor = new Color(255, 0, 0, 80);
     Color lightSquareColor = new Color(200, 200, 195);
@@ -18,14 +19,14 @@ public class Chessboard {
         frame.setBounds(10, 10, 526, 549);
         frame.setTitle("Skak");
 
-        // load spritesheet imgs
+        // spritesheet cutting-board
         BufferedImage all = ImageIO.read(new File("src/chess.png"));
-        Image[] imgs = new Image[12];
-        int ind=0;
+        Image[] spriteSheet = new Image[12];
+        int index=0;
         for(int y=0;y<400;y+=200){
             for(int x=0;x<1200;x+=200){
-                imgs[ind] = all.getSubimage(x, y, 200, 200).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
-                ind++;
+                spriteSheet[index] = all.getSubimage(x, y, 200, 200).getScaledInstance(SQUARE_SIZE, SQUARE_SIZE, BufferedImage.SCALE_SMOOTH);
+                index++;
             }
         }
         // override Jpanel paint method
@@ -42,28 +43,28 @@ public class Chessboard {
                             g.setColor(darkSquareColor);
 
                         }
-                        g.fillRect(x * 64, y * 64, 64, 64);
+                        g.fillRect(x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                         squareIsLight = !squareIsLight;
                     }
                     squareIsLight = !squareIsLight;
                 }
-                // paint legalSquares
-                if (ClickHandler.movesAnimationLoaded){
+                // paint moves
+                if (ClickHandler.animationsLoaded){
                     // initial color
                     g.setColor(movesColor);
-                    for (Integer legalSquare : ClickHandler.movesAnimation) {
-                        // highlight enemy squares
-                        if (Logic.hasEvilOccupant(legalSquare, Logic.getPieceFromSquare(legalSquare))) {
+                    for (Integer move : ClickHandler.movesAnimation) {
+                        // highlight enemy occupied squares
+                        if (Logic.hasEvilOccupant(move, Logic.getPieceFromSquare(move))) {
                             g.setColor(attacksColor);
                         }
 
-                        // highlight legal moves
-                        g.fillRect(animationLookupTable[legalSquare].x * 64, animationLookupTable[legalSquare].y * 64, 64, 64);
+                        // highlight moves
+                        g.fillRect(animationLookupTable[move].x * SQUARE_SIZE, animationLookupTable[move].y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                         g.setColor(movesColor);
                     }
-                    // highlight selected square
+                    // highlight home square
                     g.setColor(attacksColor);
-                    g.fillRect(animationLookupTable[ClickHandler.startSquare].x * 64, animationLookupTable[ClickHandler.startSquare].y * 64, 64, 64);
+                    g.fillRect(animationLookupTable[ClickHandler.startSquareAnimation].x * SQUARE_SIZE, animationLookupTable[ClickHandler.startSquareAnimation].y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                 }
                 // paint pieces
                 for (int i = 0; i < Game.state.length; i++) {
@@ -80,7 +81,7 @@ public class Chessboard {
                         if (!p.isWhite()) {
                             ind += 6;
                         }
-                        g.drawImage(imgs[ind], animationLookupTable[p.position].x * 64, animationLookupTable[p.position].y * 64, this);
+                        g.drawImage(spriteSheet[ind], animationLookupTable[p.position].x * SQUARE_SIZE, animationLookupTable[p.position].y * SQUARE_SIZE, this);
                     }
                 }
             }
