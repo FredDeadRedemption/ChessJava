@@ -2,55 +2,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClickHandler {
-    public static int startSquareAnimation = 0; // used in Chessboard.paint() if animations are loaded
-    public static List<Integer> movesAnimation = new ArrayList<>(); // used in Chessboard.paint() if animations are loaded
-    public static Boolean animationsLoaded = false; // tells Chessboard.paint() if animations are loaded
-    private static Boolean firstClick = true;
-    public static Piece firstClickedPiece = null;
-
+    public static int startSquareAnimation = 0; // used in Chessboard.paint()
+    public static List<Integer> movesAnimation = new ArrayList<>(); // used in Chessboard.paint()
+    public static boolean animationsLoaded = false; // tells Chessboard.paint() if animations are loaded
+    private static Piece firstClickedPiece = null; // keeps track on the first piece that was clicked
+    private static boolean firstClick = true;
     public static void handleClick(int clickedSquare) {
-
-        // load piece clicked
+        // load piece
         Piece clickedPiece = Logic.getPieceFromSquare(clickedSquare);
 
-        // handle first click
         if (firstClick) {
-            // if piece exists and turn to move
-            if (clickedPiece != null && (clickedPiece.isWhite() == Game.whiteToMove)) {
-                firstClickedPiece = clickedPiece;
-                clickedPiece.generateMoves();
-                startSquareAnimation = clickedSquare;
-                movesAnimation = clickedPiece.moves;
-                animationsLoaded = true;
-                Game.chessboard.animate();
-                firstClick = false;
-            }
-        }
-        // handle second click
-        if (!firstClick) {
-            // if second clicked square has friendly occupant, consider that the new first click
-            if (Logic.hasFriendlyOccupant(clickedSquare, firstClickedPiece)) {
-                firstClickedPiece = clickedPiece;
-                clickedPiece = Logic.getPieceFromSquare(clickedSquare);
-                assert clickedPiece != null;
-                clickedPiece.generateMoves();
-                startSquareAnimation = clickedSquare;
-                movesAnimation = clickedPiece.moves;
-                animationsLoaded = true;
-                Game.chessboard.animate();
-                firstClick = false;
-            }
-            // if second click is valid
-            else if (firstClickedPiece.moves.contains(clickedSquare)) {
-                firstClickedPiece.move(clickedSquare);
-                resetClick();
-                firstClickedPiece = null;
-            } else {
-                resetClick();
-            }
+            handleFirstClick(clickedPiece, clickedSquare);
+        } else {
+            handleSecondClick(clickedPiece, clickedSquare);
         }
     }
-    private static void resetClick(){
+
+    private static void handleFirstClick(Piece clickedPiece, int clickedSquare) {
+        // if piece clicked is valid
+        if (clickedPiece != null && (clickedPiece.isWhite() == Game.whiteToMove)) {
+            // assign first clicked piece
+            firstClickedPiece = clickedPiece;
+            // animate moves
+            clickedPiece.generateMoves();
+            movesAnimation = clickedPiece.moves;
+            startSquareAnimation = clickedSquare;
+            animationsLoaded = true;
+            Game.chessboard.animate();
+            // flip click
+            firstClick = false;
+        }
+    }
+
+    private static void handleSecondClick(Piece clickedPiece, int clickedSquare) {
+        // if piece is another friendly piece
+        if (Logic.hasFriendlyOccupant(clickedSquare, firstClickedPiece)) {
+            // re-assign first clicked piece
+            firstClickedPiece = clickedPiece;
+            // animate moves
+            clickedPiece.generateMoves();
+            movesAnimation = clickedPiece.moves;
+            startSquareAnimation = clickedSquare;
+            animationsLoaded = true;
+            Game.chessboard.animate();
+            // flip click
+            firstClick = false;
+        }
+        // if second click is valid execute the move
+        else if (firstClickedPiece.moves.contains(clickedSquare)) {
+            firstClickedPiece.move(clickedSquare);
+            resetClick();
+        }
+        // if second click is invalid reset
+        else {
+            resetClick();
+        }
+    }
+
+    private static void resetClick() {
         firstClick = true;
         animationsLoaded = false;
         Game.chessboard.animate();
