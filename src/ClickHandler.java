@@ -48,12 +48,12 @@ public class ClickHandler {
             // flip click
             firstClick = false;
         }
-        // if second click is valid execute the move
+        // else if second click is valid execute the move
         else if (firstClickedPiece.moves.contains(clickedSquare)) {
             firstClickedPiece.move(clickedSquare);
             resetClick();
         }
-        // if second click is invalid reset
+        // second click is invalid
         else {
             resetClick();
         }
