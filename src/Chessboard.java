@@ -48,22 +48,22 @@ public class Chessboard {
                     squareIsLight = !squareIsLight;
                 }
                 // paint legalSquares
-                if (ClickHandler.movesAnimationLoaded){
+                if (ClickHandler.animationsLoaded){
                     // initial color
                     g.setColor(movesColor);
-                    for (Integer legalSquare : ClickHandler.movesAnimation) {
+                    for (Integer move : ClickHandler.movesAnimation) {
                         // highlight enemy squares
-                        if (Logic.hasEvilOccupant(legalSquare, Logic.getPieceFromSquare(legalSquare))) {
+                        if (Logic.hasEvilOccupant(move, Logic.getPieceFromSquare(move))) {
                             g.setColor(attacksColor);
                         }
 
                         // highlight legal moves
-                        g.fillRect(animationLookupTable[legalSquare].x * 64, animationLookupTable[legalSquare].y * 64, 64, 64);
+                        g.fillRect(animationLookupTable[move].x * 64, animationLookupTable[move].y * 64, 64, 64);
                         g.setColor(movesColor);
                     }
                     // highlight selected square
                     g.setColor(attacksColor);
-                    g.fillRect(animationLookupTable[ClickHandler.startSquare].x * 64, animationLookupTable[ClickHandler.startSquare].y * 64, 64, 64);
+                    g.fillRect(animationLookupTable[ClickHandler.startSquareAnimation].x * 64, animationLookupTable[ClickHandler.startSquareAnimation].y * 64, 64, 64);
                 }
                 // paint pieces
                 for (int i = 0; i < Game.state.length; i++) {
