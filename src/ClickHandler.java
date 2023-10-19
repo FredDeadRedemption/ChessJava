@@ -2,11 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClickHandler {
+
     public static int startSquareAnimation = 0; // used in Chessboard.paint()
+
     public static List<Integer> movesAnimation = new ArrayList<>(); // used in Chessboard.paint()
+
     public static boolean animationsLoaded = false; // tells Chessboard.paint() if animations are loaded
-    private static Piece firstClickedPiece = null; // keeps track on the first piece that was clicked
-    private static boolean firstClick = true;
+
     public static void handleClick(int clickedSquare) {
         // load piece
         Piece clickedPiece = Logic.getPieceFromSquare(clickedSquare);
@@ -17,6 +19,10 @@ public class ClickHandler {
             handleSecondClick(clickedPiece, clickedSquare);
         }
     }
+
+    private static Piece firstClickedPiece = null; // keeps track on the first piece that was clicked
+
+    private static boolean firstClick = true;
 
     private static void handleFirstClick(Piece clickedPiece, int clickedSquare) {
         // if piece clicked is valid

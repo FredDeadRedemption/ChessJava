@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 public class Game {
+
     public static Chessboard chessboard;
 
     public static void main(String[] args) throws IOException {
