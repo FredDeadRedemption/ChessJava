@@ -11,7 +11,7 @@ public class Logic {
         return null;
     }
 
-    public static Boolean hasEvilOccupant(int square, Piece p) {
+    public static boolean hasEvilOccupant(int square, Piece p) {
         Piece targetp = getPieceFromSquare(square);
 
         if (targetp != null && p != null) {
@@ -20,7 +20,7 @@ public class Logic {
         return false;
     }
 
-    public static Boolean hasFriendlyOccupant(int square, Piece p) {
+    public static boolean hasFriendlyOccupant(int square, Piece p) {
         Piece targetp = getPieceFromSquare(square);
 
         if (targetp != null && p != null) {
@@ -29,13 +29,13 @@ public class Logic {
         return false;
     }
 
-    public static Boolean hasOccupant(int square) {
+    public static boolean hasOccupant(int square) {
         Piece p = getPieceFromSquare(square);
 
         return p != null;
     }
 
-    public static Boolean squareOnEdge(int offset, int square){
+    public static boolean squareOnEdge(int offset, int square){
         return switch (offset) {
             // NW
             case 7 -> square > 56 || square % 8 == 0; // top edge / left edge

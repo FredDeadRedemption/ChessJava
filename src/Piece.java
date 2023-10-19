@@ -17,7 +17,7 @@ public abstract class Piece {
         this.moves = new ArrayList<>();
     }
 
-    public Boolean isWhite(){
+    public boolean isWhite(){
         return this.type.matches("[KQBNRP]");
     }
 

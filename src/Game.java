@@ -11,7 +11,7 @@ public class Game {
         resetGameState();
     }
 
-    public static Boolean whiteToMove = true; // flips on successful move
+    public static boolean whiteToMove = true; // flips on successful move
 
     // ALL game state contained within this array
     //
