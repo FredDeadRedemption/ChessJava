@@ -66,7 +66,6 @@ public class Logic {
                 moves.remove(i);
             }
         }
-
         return moves;
     }
 }

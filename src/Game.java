@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Game {
 
@@ -56,4 +57,32 @@ public class Game {
         state[30] = new Pawn(14, "P");
         state[31] = new Pawn(15, "P");
     }
+
+    // TODO: this is expensive af so maybe just make a class for moves
+    public static Piece[] deepCloneState(Piece[] originalState) {
+        Piece[] clonedState = new Piece[originalState.length];
+
+        for (int i = 0; i < originalState.length; i++) {
+            if (originalState[i] instanceof Rook) {
+                clonedState[i] = new Rook(originalState[i].position, originalState[i].type);
+            } else if (originalState[i] instanceof Knight) {
+                clonedState[i] = new Knight(originalState[i].position, originalState[i].type);
+            } else if (originalState[i] instanceof Bishop) {
+                clonedState[i] = new Bishop(originalState[i].position, originalState[i].type);
+            } else if (originalState[i] instanceof Queen) {
+                clonedState[i] = new Queen(originalState[i].position, originalState[i].type);
+            } else if (originalState[i] instanceof King) {
+                clonedState[i] = new King(originalState[i].position, originalState[i].type);
+            } else if (originalState[i] instanceof Pawn) {
+                clonedState[i] = new Pawn(originalState[i].position, originalState[i].type);
+            }
+            clonedState[i].hasMoved = originalState[i].hasMoved;
+            clonedState[i].hasBeenSlaughtered = originalState[i].hasBeenSlaughtered;
+            clonedState[i].offsets = new ArrayList<>(originalState[i].offsets);
+            clonedState[i].moves = new ArrayList<>(originalState[i].moves);
+        }
+
+        return clonedState;
+    }
+
 }

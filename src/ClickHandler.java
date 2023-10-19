@@ -4,9 +4,7 @@ import java.util.List;
 public class ClickHandler {
 
     public static int startSquareAnimation = 0; // used in Chessboard.paint()
-
     public static List<Integer> movesAnimation = new ArrayList<>(); // used in Chessboard.paint()
-
     public static boolean animationsLoaded = false; // tells Chessboard.paint() if animations are loaded
 
     public static void handleClick(int clickedSquare) {
@@ -41,18 +39,9 @@ public class ClickHandler {
     }
 
     private static void handleSecondClick(Piece clickedPiece, int clickedSquare) {
-        // if piece is another friendly piece
+        // if piece is another friendly piece consider it new first click
         if (Logic.hasFriendlyOccupant(clickedSquare, firstClickedPiece)) {
-            // re-assign first clicked piece
-            firstClickedPiece = clickedPiece;
-            // animate moves
-            clickedPiece.generateMoves();
-            movesAnimation = clickedPiece.moves;
-            startSquareAnimation = clickedSquare;
-            animationsLoaded = true;
-            Game.chessboard.animate();
-            // flip click
-            firstClick = false;
+           handleFirstClick(clickedPiece, clickedSquare);
         }
         // else if second click is valid execute the move
         else if (firstClickedPiece.moves.contains(clickedSquare)) {
