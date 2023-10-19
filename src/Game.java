@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
     public static Chessboard chessboard;
@@ -12,42 +10,6 @@ public class Game {
     }
 
     public static Boolean whiteToMove = true; // flips on successful move
-
-    static List<List<Integer>> blackMoves = new ArrayList<>(15); // array of lists, index corresponding to piece
-
-    public static void evilPlay(){
-        generateAllBlackMoves();
-        System.out.println(blackMoves);
-
-        int randPieceIndex = RNGBot.getRandomNonEmptyListIndex(blackMoves);
-
-        Piece p = state[randPieceIndex];
-
-        int randomMove = blackMoves.get(randPieceIndex).get(RNGBot.getRandomMove(blackMoves.get(randPieceIndex)));
-
-        p.move(randomMove);
-
-        whiteToMove = !whiteToMove;
-
-        System.out.println("RAND PIECE: " + p + "\nRAND MOVE:" + randomMove);
-    }
-
-    private static void generateAllBlackMoves(){
-
-        blackMoves.clear();
-
-        for(int i = 0; i < 16; i++){ // loop though black pieces
-
-            Piece p = state[i];
-
-            if (!p.hasBeenSlaughtered){
-
-                p.generateMoves();
-
-                blackMoves.add(p.moves); // add list of all moves for that piece
-            } else blackMoves.add(new ArrayList<>()); // add empty list if piece is dead
-        }
-    }
 
     // ALL game state contained within this array
     //

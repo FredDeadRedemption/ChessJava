@@ -52,6 +52,7 @@ public class ClickHandler {
         else if (firstClickedPiece.moves.contains(clickedSquare)) {
             firstClickedPiece.move(clickedSquare);
             resetClick();
+            Game.whiteToMove = !Game.whiteToMove;
         }
         // second click is invalid
         else {
