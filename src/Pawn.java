@@ -51,4 +51,5 @@ public class Pawn extends Piece{
 
         this.moves = Logic.filterMoves(moves, this);
     }
+    // TODO: overwrite move method to promote this
 }
