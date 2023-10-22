@@ -10,7 +10,7 @@ public class ClickHandler {
     public static void handleClick(int clickedSquare) {
         // load piece
         Piece clickedPiece = Logic.getPieceFromSquare(clickedSquare);
-
+        // handle the business
         if (firstClick) {
             handleFirstClick(clickedPiece, clickedSquare);
         } else {
@@ -39,17 +39,17 @@ public class ClickHandler {
     }
 
     private static void handleSecondClick(Piece clickedPiece, int clickedSquare) {
-        // if piece is another friendly piece consider it new first click
+        // if second clicked piece is another friendly piece consider it the new first click
         if (Logic.hasFriendlyOccupant(clickedSquare, firstClickedPiece)) {
            handleFirstClick(clickedPiece, clickedSquare);
         }
-        // else if second click is valid execute the move
+        // if second click is valid execute the move
         else if (firstClickedPiece.moves.contains(clickedSquare)) {
             firstClickedPiece.move(clickedSquare);
             resetClick();
             Game.whiteToMove = !Game.whiteToMove;
         }
-        // second click is invalid
+        // if second click is invalid
         else {
             resetClick();
         }

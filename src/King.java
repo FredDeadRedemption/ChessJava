@@ -12,21 +12,21 @@ public class King extends Piece{
         List<Integer> moves = new ArrayList<>();
 
         // right
-        if (this.position % 8 != 7) {
+        if (Logic.RIGHT_EDGE[this.position] != 1) {
             moves.add(this.position + 9);
             moves.add(this.position + 1);
             moves.add(this.position - 7);
         }
         // left
-        if (this.position % 8 != 0) {
+        if (Logic.LEFT_EDGE[this.position] != 1) {
             moves.add(this.position + 7);
             moves.add(this.position - 1);
             moves.add(this.position - 9);
         }
         // up
-        if (this.position < 56) moves.add(this.position + 8);
+        if (Logic.TOP_EDGE[this.position] != 1) moves.add(this.position + 8);
         // down
-        if (this.position > 8) moves.add(this.position - 8);
+        if (Logic.BOTTOM_EDGE[this.position] != 1) moves.add(this.position - 8);
 
         this.moves = Logic.filterMoves(moves, this);
     }

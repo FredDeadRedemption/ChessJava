@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Chessboard extends JComponent {
-    int SQUARE_SIZE = 64;
+    byte SQUARE_SIZE = 64;
     Color homeColor = new Color(255, 150, 0, 80);
     Color movesColor = new Color(135, 206, 235, 80);
     Color attacksColor = new Color(255, 0, 0, 80);
@@ -121,7 +121,7 @@ public class Chessboard extends JComponent {
     }
 
     // maps bitboard to pixels
-    private static final Square[] animationLookupTable = { // TODO make this a function
+    private static final Square[] animationLookupTable = {
             new Square(0, 7),
             new Square(1, 7),
             new Square(2, 7),

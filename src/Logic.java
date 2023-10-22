@@ -35,6 +35,7 @@ public class Logic {
         return p != null;
     }
 
+    // int to boolean casting not permitted in Java.
     public static boolean squareOnEdge(int offset, int square){
         return switch (offset) {
             // NW
@@ -62,11 +63,13 @@ public class Logic {
             case -1:
                 yield LEFT_EDGE[square] == 1;// left edge
             default:
-                throw new IllegalStateException("Unexpected value: " + offset);
+                throw new IllegalStateException("Unexpected offset value: " + offset);
         };
     }
 
-    private static final int[] BOTTOM_EDGE = {
+    // 8-bit Lookup Tables for instant edge detection without any comparisons.
+
+    public static final byte[] BOTTOM_EDGE = {
             1, 1, 1, 1, 1, 1, 1, 1,
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -77,7 +80,7 @@ public class Logic {
             0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    private static final int[] TOP_EDGE = {
+    public static final byte[] TOP_EDGE = {
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -88,7 +91,7 @@ public class Logic {
             1, 1, 1, 1, 1, 1, 1, 1,
     };
 
-    private static final int[] LEFT_EDGE = {
+    public static final byte[] LEFT_EDGE = {
             1, 0, 0, 0, 0, 0, 0, 0,
             1, 0, 0, 0, 0, 0, 0, 0,
             1, 0, 0, 0, 0, 0, 0, 0,
@@ -99,7 +102,7 @@ public class Logic {
             1, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    private static final int[] RIGHT_EDGE = {
+    public static final byte[] RIGHT_EDGE = {
             0, 0, 0, 0, 0, 0, 0, 1,
             0, 0, 0, 0, 0, 0, 0, 1,
             0, 0, 0, 0, 0, 0, 0, 1,

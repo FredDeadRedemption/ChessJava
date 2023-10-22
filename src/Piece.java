@@ -4,10 +4,10 @@ import java.util.List;
 public abstract class Piece {
     int position; // 0-63 bitboard position
     List<Integer> offsets; // to determines move pattern
-    List<Integer> moves; // TODO: delete this make a moves class
+    List<Integer> moves; // TODO: maybe delete this make a moves class
     String type; // P="white pawn" p="black pawn" N="white knight" k="black king"...
     boolean hasMoved; // for castle & double pawn moves
-    boolean hasBeenSlaughtered; // for castle & rendering
+    boolean hasBeenSlaughtered; // for castle & rendering // TODO: just delete the piece object itself from the state array maybe
     public Piece(int position, String type){
         this.position = position;
         this.type = type;
@@ -35,16 +35,16 @@ public abstract class Piece {
 
         List<Integer> moves = new ArrayList<>();
 
-        // if piece is already on edge based on its offset
+        // if piece is already on edge based on its offset break;
         if (Logic.squareOnEdge(offset, this.position)) return moves;
 
-        // generate each sliding moves for offset
+        // generate each sliding moves for in offsets direction
         for(int i = 1; i < 8; i++){
 
             moves.add(this.position + offset * i);
 
-            if (Logic.squareOnEdge(offset, this.position + offset * i)) break; // if move hits edge
-            if (Logic.hasOccupant(this.position + offset * i)) break; // if move hits occupied square
+            if (Logic.squareOnEdge(offset, this.position + offset * i)) break; // if move hits edge stop
+            if (Logic.hasOccupant(this.position + offset * i)) break; // if move hits occupied square stop
 
         }
         return moves;
