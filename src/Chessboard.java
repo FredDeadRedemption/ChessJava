@@ -69,6 +69,7 @@ public class Chessboard extends JComponent {
                 // paint pieces
                 for (int i = 0; i < Game.state.length; i++) {
                     Piece p = Game.state[i];
+                    assert p != null;
                     if (!p.hasBeenSlaughtered) {
                         int ind = switch (p.type) {
                             case "q", "Q" -> 1;
