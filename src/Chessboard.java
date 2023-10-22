@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class Chessboard extends JComponent {
     int SQUARE_SIZE = 64;
+    Color homeColor = new Color(255, 150, 0, 80);
     Color movesColor = new Color(135, 206, 235, 80);
     Color attacksColor = new Color(255, 0, 0, 80);
     Color lightSquareColor = new Color(200, 200, 195);
@@ -54,7 +55,7 @@ public class Chessboard extends JComponent {
                     g.setColor(movesColor);
                     for (Integer move : ClickHandler.movesAnimation) {
                         // highlight enemy occupied squares
-                        if (Logic.hasEvilOccupant(move, Logic.getPieceFromSquare(move))) {
+                        if (Logic.hasEvilOccupant(move, Logic.getPieceFromSquare(ClickHandler.startSquareAnimation))) {
                             g.setColor(attacksColor);
                         }
 
@@ -63,7 +64,7 @@ public class Chessboard extends JComponent {
                         g.setColor(movesColor);
                     }
                     // highlight home square
-                    g.setColor(attacksColor);
+                    g.setColor(homeColor);
                     g.fillRect(animationLookupTable[ClickHandler.startSquareAnimation].x * SQUARE_SIZE, animationLookupTable[ClickHandler.startSquareAnimation].y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                 }
                 // paint pieces

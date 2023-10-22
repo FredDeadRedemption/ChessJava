@@ -38,26 +38,35 @@ public class Logic {
     public static boolean squareOnEdge(int offset, int square){
         return switch (offset) {
             // NW
-            case 7 -> square > 56 || square % 8 == 0; // top edge / left edge
+            case 7:
+                yield (TOP_EDGE[square] == 1 || LEFT_EDGE[square] == 1); // top edge / left edge
             // NE
-            case 9 -> square > 56 || square % 8 == 7; // top edge / right edge
+            case 9:
+                yield (TOP_EDGE[square] == 1 || RIGHT_EDGE[square] == 1); // top edge / right edge
             // SE
-            case -7 -> square < 8 || square % 8 == 7; // bottom edge / right edge
+            case -7:
+                yield (BOTTOM_EDGE[square] == 1 || RIGHT_EDGE[square] == 1);// bottom edge / right edge
             // SW
-            case -9 -> square < 8 || square % 8 == 0; // bottom edge / left edge
+            case -9:
+                yield (BOTTOM_EDGE[square] == 1 || LEFT_EDGE[square] == 1);// bottom edge / left edge
             // N
-            case 8 -> square > 56; // top edge
+            case 8:
+                yield TOP_EDGE[square] == 1;// top edge
             // S
-            case -8 -> square < 8; // bottom edge
+            case -8:
+                yield BOTTOM_EDGE[square] == 1;// bottom edge
             // E
-            case 1 -> square % 8 == 7; // right edge
+            case 1:
+                yield RIGHT_EDGE[square] == 1;// right edge
             // W
-            case -1 -> square % 8 == 0; // left edge
-            default -> false;
+            case -1:
+                yield LEFT_EDGE[square] == 1;// left edge
+            default:
+                throw new IllegalStateException("Unexpected value: " + offset);
         };
     }
 
-    public static int[] BOTTOM_EDGE = {
+    private static final int[] BOTTOM_EDGE = {
             1, 1, 1, 1, 1, 1, 1, 1,
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -68,7 +77,7 @@ public class Logic {
             0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    public static int[] TOP_EDGE = {
+    private static final int[] TOP_EDGE = {
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -77,6 +86,28 @@ public class Logic {
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
             1, 1, 1, 1, 1, 1, 1, 1,
+    };
+
+    private static final int[] LEFT_EDGE = {
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0,
+    };
+
+    private static final int[] RIGHT_EDGE = {
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 1,
     };
 
 
