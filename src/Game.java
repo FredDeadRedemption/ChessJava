@@ -9,6 +9,8 @@ public class Game {
         chessboard = new Chessboard();
 
         resetGameState();
+
+        TimeMeasurementTest.run();
     }
 
     //                     Ladies and Gents,

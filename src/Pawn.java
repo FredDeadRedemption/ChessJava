@@ -17,7 +17,7 @@ public class Pawn extends Piece{
         int fileLeft;
         int fileRight;
 
-        //offsets for black / white
+        // determine offsets for black / white
         if (Objects.equals(this.type, "P")){
             pawnAttackLeft = 7;
             pawnAttackRight = 9;

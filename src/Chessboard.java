@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Chessboard extends JComponent {
+public class Chessboard{
     byte SQUARE_SIZE = 64;
     Color homeColor = new Color(255, 150, 0, 80);
     Color movesColor = new Color(135, 206, 235, 80);
@@ -34,7 +34,7 @@ public class Chessboard extends JComponent {
         panel = new JPanel(new GridLayout(8, 8)) {
             @Override
             public void paint(Graphics g) {
-                // paint board
+                // paint board ////////////////////////////////////////////////////////////////////////////////////////
                 boolean squareIsLight = true;
                 for (int y = 0; y < 8; y++) {
                     for (int x = 0; x < 8; x++) {
@@ -49,9 +49,9 @@ public class Chessboard extends JComponent {
                     }
                     squareIsLight = !squareIsLight;
                 }
-                // paint moves
+                // paint moves ////////////////////////////////////////////////////////////////////////////////////////
                 if (ClickHandler.animationsLoaded){
-                    // initial color
+                    // set initial color
                     g.setColor(movesColor);
                     for (Integer move : ClickHandler.movesAnimation) {
                         // highlight enemy occupied squares
@@ -67,7 +67,7 @@ public class Chessboard extends JComponent {
                     g.setColor(homeColor);
                     g.fillRect(animationLookupTable[ClickHandler.startSquareAnimation].x * SQUARE_SIZE, animationLookupTable[ClickHandler.startSquareAnimation].y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                 }
-                // paint pieces
+                // paint pieces ///////////////////////////////////////////////////////////////////////////////////////
                 for (int i = 0; i < Game.state.length; i++) {
                     Piece p = Game.state[i];
                     assert p != null;
@@ -116,12 +116,10 @@ public class Chessboard extends JComponent {
         frame.setVisible(true);
     }
 
-    public void animate(){
-        panel.repaint();
-    }
+    public void animate(){ panel.repaint(); }
 
     // maps bitboard to pixels
-    private static final Square[] animationLookupTable = {
+    private static final Square[] animationLookupTable = { // TODO: make this a static List<Map<Integer, Integer>>>
             new Square(0, 7),
             new Square(1, 7),
             new Square(2, 7),
@@ -187,5 +185,4 @@ public class Chessboard extends JComponent {
             new Square(6, 0),
             new Square(7, 0),
     };
-
 }
