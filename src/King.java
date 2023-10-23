@@ -28,24 +28,26 @@ public class King extends Piece{
         // down
         if (Logic.BOTTOM_EDGE[this.position] != 1) moves.add(this.position - 8);
 
-        // TODO: rewrite + check if squares between king and rook are contested
-        /*
-        if (piece.color == "white" && !king_white.hasMoved && !rook_white2.hasMoved && !rook_white2.hasBeenCaptured && hasNoOccupance(5) && hasNoOccupance(6)) {
-            legalSquares[8] = piece.position + 2;
+        // TODO: + check if squares between king and rook are contested
+        // castling
+        if(!this.hasMoved){
+            // castle short white
+            if (this.isWhite() && !Game.state[23].hasMoved && !Game.state[23].hasBeenSlaughtered && !Logic.hasOccupant(5) && !Logic.hasOccupant(6)){
+                moves.add(6);
+            }
+            // castle long white
+            if (this.isWhite() && !Game.state[16].hasMoved && !Game.state[16].hasBeenSlaughtered && !Logic.hasOccupant(1) && !Logic.hasOccupant(2) && !Logic.hasOccupant(3)){
+                moves.add(2);
+            }
+            // castle short black
+            if (!isWhite() && !Game.state[7].hasMoved && !Game.state[7].hasBeenSlaughtered && !Logic.hasOccupant(61) && !Logic.hasOccupant(62)){
+                moves.add(62);
+            }
+            // castle long black
+            if (!isWhite() && !Game.state[0].hasMoved && !Game.state[0].hasBeenSlaughtered && !Logic.hasOccupant(57) && !Logic.hasOccupant(58)){
+                moves.add(58);
+            }
         }
-        //castle long white
-        if (piece.color == "white" && !king_white.hasMoved && !rook_white.hasMoved && !rook_white.hasBeenCaptured && hasNoOccupance(1) && hasNoOccupance(2) && hasNoOccupance(3)) {
-            legalSquares[9] = piece.position - 2;
-        }
-        //castle short black
-        if (piece.color == "black" && !king_black.hasMoved && !rook_black2.hasMoved && !rook_black2.hasBeenCaptured && hasNoOccupance(61) && hasNoOccupance(62)) {
-            legalSquares[10] = piece.position + 2;
-        }
-        //castle long black
-        if (piece.color == "black" && !king_black.hasMoved && !rook_black.hasMoved && !rook_black.hasBeenCaptured && hasNoOccupance(57) && hasNoOccupance(58) && hasNoOccupance(59)) {
-            legalSquares[11] = piece.position - 2;
-        }
-        */
 
         this.moves = Logic.filterMoves(moves, this);
     }
@@ -53,24 +55,17 @@ public class King extends Piece{
     @Override
     public void move(int targetSquare){
 
-        // TODO: move rook pos inside here
-        /*
+        // TODO: test castling for bugs
+
+        // move rook after castling
         if(!this.hasMoved){
-            if(this.isWhite()){
-                if(targetSquare == 6) {
-                    // castle right white
-                } else if(targetSquare == 2){
-                    // castle left white
-                }
-            } else {
-                if(targetSquare == 62){
-                    // castle right black
-                } else if (targetSquare == 58){
-                    // castle left black
-                }
+            switch (targetSquare) {
+                case 6 -> Game.state[23].move(5); // castle short white
+                case 2 -> Game.state[16].move(3); // castle long white
+                case 62 -> Game.state[7].move(61); // castle short black
+                case 58 -> Game.state[0].move(59); // castle long black
             }
         }
-        */
 
         // if enemy, kill it
         if (Logic.hasEvilOccupant(targetSquare, this)){
