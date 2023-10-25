@@ -6,9 +6,9 @@ public class Game {
     public static Chessboard chessboard;
 
     public static void main(String[] args) throws IOException {
-        resetGameState();
-
         chessboard = new Chessboard();
+
+        resetGameState();
 
         TimeMeasurementTest.run();
     }
@@ -75,7 +75,7 @@ public class Game {
         state[31] = new Pawn(15, "P");
     }
 
-    // TODO: this is expensive af so maybe just make a class for moves and make move.unmake()
+    // TODO: this is expensive af so maybe just make a class for moves
     public static Piece[] deepCloneState(Piece[] originalState) {
         Piece[] clonedState = new Piece[originalState.length];
 

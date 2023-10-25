@@ -52,26 +52,4 @@ public class Pawn extends Piece{
         this.moves = Logic.filterMoves(moves, this);
     }
     // TODO: overwrite move method to promote this
-
-    @Override
-    public void move(int targetSquare){
-
-        // if enemy, kill it
-        if (Logic.hasEvilOccupant(targetSquare, this)){
-            Piece p = Logic.getPieceFromSquare(targetSquare);
-            assert p != null;
-            p.kill();
-        }
-        // make move
-        this.position = targetSquare;
-        this.hasMoved = true;
-        // promote
-        if(Logic.TOP_EDGE[this.position] == 1 && this.isWhite()){
-            // white queen
-            Game.state[this.getIndex()] = new Queen(this.position, "Q");
-        } else if(Logic.BOTTOM_EDGE[this.position] == 1 && !this.isWhite()){
-            // black queen
-            Game.state[this.getIndex()] = new Queen(this.position, "q");
-        }
-    }
 }

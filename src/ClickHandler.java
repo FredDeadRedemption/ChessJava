@@ -10,7 +10,7 @@ public class ClickHandler {
     public static void handleClick(int clickedSquare) {
         // load piece
         Piece clickedPiece = Logic.getPieceFromSquare(clickedSquare);
-        // handle the bizness
+        // handle the business
         if (firstClick) {
             handleFirstClick(clickedPiece, clickedSquare);
         } else {
