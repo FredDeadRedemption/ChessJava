@@ -123,6 +123,28 @@ public class Logic {
                 moves.remove(i);
             }
         }
+        // TODO: filter out checking your own king
+        /*
+        how to filter out moves that check the friendly king
+
+        step 1. deep clone the current game state in a snapshot-state
+
+        step 2. make a moves from the piece.moves list
+
+        step 3. update opposing pieces moves (without filtering moves the check their own king.. (stack overflow))
+
+        step 4. if the king is now in check remove the move that was made from the moves list
+
+        step 5. deep clone the snapshot-state in games current state
+
+        step 6. return filtered moves from this function overriding moves in current state
+
+        Continue step 1-6 for all moves
+         */
+
+
+
+
         return moves;
     }
 }
