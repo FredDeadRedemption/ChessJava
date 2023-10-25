@@ -123,6 +123,10 @@ public class Logic {
                 moves.remove(i);
             }
         }
+
+        // filter moves that uncheck
+        Piece[] snapshot = Game.deepCloneState(Game.state);
+
         return moves;
     }
 }
