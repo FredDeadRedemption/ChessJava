@@ -61,4 +61,13 @@ public abstract class Piece {
         this.position = targetSquare;
         this.hasMoved = true;
     }
+
+    public int getIndex() {
+        for (int i = 0; i < Game.state.length; i++) {
+            if (this.equals(Game.state[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
