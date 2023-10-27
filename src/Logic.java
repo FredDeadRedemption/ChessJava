@@ -67,8 +67,6 @@ public class Logic {
         };
     }
 
-    // 8-bit Lookup Tables for instant edge detection without any comparisons.
-
     public static final byte[] BOTTOM_EDGE = {
             1, 1, 1, 1, 1, 1, 1, 1,
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -137,9 +135,9 @@ public class Logic {
 
         step 5. deep clone the snapshot-state in games current state
 
-        step 6. return filtered moves from this function overriding moves in current state
+        step 6. return filtered moves from this function overriding moves for that piece in current state
 
-        Continue step 1-6 for all moves
+        Continue step 1-6 for all the pieces.moves
          */
 
 

@@ -55,8 +55,6 @@ public class King extends Piece{
     @Override
     public void move(int targetSquare){
 
-        // TODO: test castling for bugs
-
         // move rook after castling
         if(!this.hasMoved){
             switch (targetSquare) {
