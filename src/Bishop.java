@@ -11,7 +11,6 @@ public class Bishop extends Piece{
         this.offsets.add(-9);
     }
 
-    @Override
     public void generateMoves() {
 
         List<Integer> moves = new ArrayList<>();
@@ -21,6 +20,6 @@ public class Bishop extends Piece{
             moves.addAll(this.generateSlidingMoves(offset));
         }
 
-        this.moves = Logic.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this);
     }
 }

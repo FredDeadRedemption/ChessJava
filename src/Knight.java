@@ -6,7 +6,6 @@ public class Knight extends Piece {
         super(position, type);
     }
 
-    @Override
     public void generateMoves() {
 
         List<Integer> moves = new ArrayList<>();
@@ -29,6 +28,6 @@ public class Knight extends Piece {
             }
         }
 
-        this.moves = Logic.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this);
     }
 }

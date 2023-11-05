@@ -1,11 +1,11 @@
 import java.util.List;
 
-public class Logic {
+public class Util {
 
     // collection of logical utility methods
 
     public static Piece getPieceFromSquare(int square){
-        for (Piece p : Game.state) {
+        for (Piece p : Game.state.pieces) {
             if (p.position == square) {return p;}
         }
         return null;
@@ -117,7 +117,7 @@ public class Logic {
         // Filter moves outside the board + moves with friendly pieces
         for (int i = moves.size() - 1; i >= 0; i--) {
             int square = moves.get(i);
-            if (square < 0 || square > 63 || Logic.hasFriendlyOccupant(square, p)) {
+            if (square < 0 || square > 63 || Util.hasFriendlyOccupant(square, p)) {
                 moves.remove(i);
             }
         }
@@ -129,7 +129,7 @@ public class Logic {
 
         step 2. make a moves from the piece.moves list
 
-        step 3. update opposing pieces moves (without filtering moves the check their own king.. (stack overflow))
+        step 3. update opposing pieces moves (without filtering moves the check their own king.. stack overflow)
 
         step 4. if the king is now in check remove the move that was made from the moves list
 
@@ -137,11 +137,8 @@ public class Logic {
 
         step 6. return filtered moves from this function overriding moves for that piece in current state
 
-        Continue step 1-6 for all the pieces.moves
+        Continue step 1-6 for all the state.pieces.moves
          */
-
-
-
 
         return moves;
     }

@@ -5,8 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Chessboard{
-    byte SQUARE_SIZE = 64;
+public class View {
     Color homeColor = new Color(255, 150, 0, 80);
     Color movesColor = new Color(135, 206, 235, 80);
     Color attacksColor = new Color(255, 0, 0, 80);
@@ -14,7 +13,7 @@ public class Chessboard{
     Color darkSquareColor = new Color(146, 143, 122);
     JPanel panel;
     JFrame frame;
-    public Chessboard() throws IOException {
+    public View() throws IOException {
         // Jframe
         frame = new JFrame();
         frame.setBounds(10, 10, 526, 549);
@@ -26,7 +25,7 @@ public class Chessboard{
         int index=0;
         for(int y=0;y<400;y+=200){
             for(int x=0;x<1200;x+=200){
-                spriteSheet[index] = all.getSubimage(x, y, 200, 200).getScaledInstance(SQUARE_SIZE, SQUARE_SIZE, BufferedImage.SCALE_SMOOTH);
+                spriteSheet[index] = all.getSubimage(x, y, 200, 200).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
                 index++;
             }
         }
@@ -44,7 +43,7 @@ public class Chessboard{
                             g.setColor(darkSquareColor);
 
                         }
-                        g.fillRect(x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+                        g.fillRect(x * 64, y * 64, 64, 64);
                         squareIsLight = !squareIsLight;
                     }
                     squareIsLight = !squareIsLight;
@@ -55,21 +54,21 @@ public class Chessboard{
                     g.setColor(movesColor);
                     for (Integer move : ClickHandler.movesAnimation) {
                         // highlight enemy occupied squares
-                        if (Logic.hasEvilOccupant(move, Logic.getPieceFromSquare(ClickHandler.startSquareAnimation))) {
+                        if (Util.hasEvilOccupant(move, Util.getPieceFromSquare(ClickHandler.startSquareAnimation))) {
                             g.setColor(attacksColor);
                         }
 
                         // highlight moves
-                        g.fillRect(animationLookupTable[move].x * SQUARE_SIZE, animationLookupTable[move].y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+                        g.fillRect(animationLookupTable[move].x * 64, animationLookupTable[move].y * 64, 64, 64);
                         g.setColor(movesColor);
                     }
                     // highlight home square
                     g.setColor(homeColor);
-                    g.fillRect(animationLookupTable[ClickHandler.startSquareAnimation].x * SQUARE_SIZE, animationLookupTable[ClickHandler.startSquareAnimation].y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+                    g.fillRect(animationLookupTable[ClickHandler.startSquareAnimation].x * 64, animationLookupTable[ClickHandler.startSquareAnimation].y * 64, 64, 64);
                 }
                 // paint pieces ///////////////////////////////////////////////////////////////////////////////////////
-                for (int i = 0; i < Game.state.length; i++) {
-                    Piece p = Game.state[i];
+                for (int i = 0; i < Game.state.pieces.length; i++) {
+                    Piece p = Game.state.pieces[i];
                     assert p != null;
                     if (!p.hasBeenSlaughtered) {
                         int ind = switch (p.type) {
@@ -83,7 +82,7 @@ public class Chessboard{
                         if (!p.isWhite()) {
                             ind += 6;
                         }
-                        g.drawImage(spriteSheet[ind], animationLookupTable[p.position].x * SQUARE_SIZE, animationLookupTable[p.position].y * SQUARE_SIZE, this);
+                        g.drawImage(spriteSheet[ind], animationLookupTable[p.position].x * 64, animationLookupTable[p.position].y * 64, this);
                     }
                 }
             }

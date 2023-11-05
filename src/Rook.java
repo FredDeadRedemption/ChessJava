@@ -11,7 +11,6 @@ public class Rook extends Piece{
         this.offsets.add(-1);
     }
 
-    @Override
     public void generateMoves() {
 
         List<Integer> moves = new ArrayList<>();
@@ -21,6 +20,6 @@ public class Rook extends Piece{
             moves.addAll(this.generateSlidingMoves(offset));
         }
 
-        this.moves = Logic.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this);
     }
 }
