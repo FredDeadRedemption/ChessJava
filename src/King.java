@@ -57,10 +57,10 @@ public class King extends Piece{
         // this moves the rooks after castling
         if(!this.hasMoved){
             switch (targetSquare) {
-                case 6 -> Game.state.pieces[23].move(5); // castle short white
-                case 2 -> Game.state.pieces[16].move(3); // castle long white
-                case 62 -> Game.state.pieces[7].move(61); // castle short black
-                case 58 -> Game.state.pieces[0].move(59); // castle long black
+                case 6 -> Game.state.pieces[23].move(5); // move light-square white rook
+                case 2 -> Game.state.pieces[16].move(3); // move dark-square white rook
+                case 62 -> Game.state.pieces[7].move(61); // move dark-square black rook
+                case 58 -> Game.state.pieces[0].move(59); // move light-square black rook
             }
         }
 

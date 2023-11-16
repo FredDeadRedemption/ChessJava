@@ -13,7 +13,7 @@ public class CustomPanel extends JPanel {
     Color lightSquareColor = new Color(200, 200, 195);
     Color darkSquareColor = new Color(146, 143, 122);
     Image[] spriteSheet;
-    List<Integer> movesAnimation; // list off which squares to paint
+    List<Integer> movesAnimation; // list of which squares to paint
     int homeSquareAnimation; // home square to paint
     boolean animationsFlag; // when false, only the board will be painted
 

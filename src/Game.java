@@ -28,5 +28,5 @@ public class Game {
     //                └─────────────────────────┘
     //                   A  B  C  D  E  F  G  H
     //               0-63 chessboard representation
-    //   State = model | ClickHandler = controller | View = view
+    //
 }

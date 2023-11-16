@@ -1,6 +1,4 @@
-public class ClickHandler {
-
-    // this functions as the controller where all the action happens
+public class Controller {
 
     public static void handleClick(int clickedSquare) {
         // load piece
@@ -13,12 +11,12 @@ public class ClickHandler {
         }
     }
 
-    private static Piece firstClickedPiece = null; // keeps track on the first piece that was clicked
+    private static Piece firstClickedPiece = null; // stores the first piece that was clicked
 
-    private static boolean firstClick = true;
+    private static boolean firstClick = true; // flips on click
 
     private static void handleFirstClick(Piece clickedPiece) {
-        // if piece clicked is valid
+        // if piece clicked is valid & turn to move
         if (clickedPiece != null && (clickedPiece.isWhite() == Game.state.whiteToMove)) {
             // assign first clicked piece
             firstClickedPiece = clickedPiece;
@@ -38,7 +36,9 @@ public class ClickHandler {
         }
         // if second click is valid execute the move
         else if (firstClickedPiece.moves.contains(clickedSquare)) {
+            // move
             firstClickedPiece.move(clickedSquare);
+            // reset & switch turn
             resetClick();
             Game.state.whiteToMove = !Game.state.whiteToMove;
         }

@@ -26,7 +26,7 @@ public class View {
 
                 row = i + 1;
                 final int clickedSquare = x + j - 7;
-                buttons[i][j].addActionListener(e -> ClickHandler.handleClick(clickedSquare));
+                buttons[i][j].addActionListener(e -> Controller.handleClick(clickedSquare));
             }
             // retard math
             if (row != 7) {

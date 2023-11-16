@@ -2,8 +2,6 @@ import java.util.List;
 
 public class Util {
 
-    // collection of logical utility methods
-
     public static Piece getPieceFromSquare(int square){
         for (Piece p : Game.state.pieces) {
             if (p.position == square) {return p;}
@@ -11,31 +9,31 @@ public class Util {
         return null;
     }
 
-    public static boolean hasEvilOccupant(int square, Piece p) {
-        Piece targetp = getPieceFromSquare(square);
+    public static boolean hasEvilOccupant(int square, Piece friendlyPiece) {
+        Piece pieceOnSquare = getPieceFromSquare(square);
 
-        if (targetp != null && p != null) {
-            return ((targetp.isWhite() && !p.isWhite()) || (!targetp.isWhite() && p.isWhite()));
+        if (pieceOnSquare != null && friendlyPiece != null) {
+            return ((pieceOnSquare.isWhite() && !friendlyPiece.isWhite()) || (!pieceOnSquare.isWhite() && friendlyPiece.isWhite()));
         }
         return false;
     }
 
-    public static boolean hasFriendlyOccupant(int square, Piece p) {
-        Piece targetp = getPieceFromSquare(square);
+    public static boolean hasFriendlyOccupant(int square, Piece friendlyPiece) {
+        Piece pieceOnSquare = getPieceFromSquare(square);
 
-        if (targetp != null && p != null) {
-            return ((targetp.isWhite() && p.isWhite()) || (!targetp.isWhite() && !p.isWhite()));
+        if (pieceOnSquare != null && friendlyPiece != null) {
+            return ((pieceOnSquare.isWhite() && friendlyPiece.isWhite()) || (!pieceOnSquare.isWhite() && !friendlyPiece.isWhite()));
         }
         return false;
     }
 
     public static boolean hasOccupant(int square) {
-        Piece p = getPieceFromSquare(square);
+        Piece pieceOnSquare = getPieceFromSquare(square);
 
-        return p != null;
+        return pieceOnSquare != null;
     }
 
-    // int to boolean casting not permitted in Java.
+    // checks if a square is on the edge based on offset.
     public static boolean squareOnEdge(int offset, int square){
         return switch (offset) {
             // NW
