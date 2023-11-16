@@ -11,7 +11,7 @@ public class Rook extends Piece{
         this.offsets.add(-1);
     }
 
-    public void generateMoves() {
+    public void generateMoves(boolean filter) {
 
         List<Integer> moves = new ArrayList<>();
 
@@ -20,6 +20,6 @@ public class Rook extends Piece{
             moves.addAll(this.generateSlidingMoves(offset));
         }
 
-        this.moves = Util.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this, filter);
     }
 }

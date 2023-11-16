@@ -21,7 +21,7 @@ public abstract class Piece {
         return this.type.matches("[KQBNRP]");
     }
 
-    public abstract void generateMoves();
+    public abstract void generateMoves(boolean filter);
 
     public List<Integer> generateSlidingMoves(int offset){ // used for rook - bishop - queen
 

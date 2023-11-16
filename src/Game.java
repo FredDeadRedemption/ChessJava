@@ -29,4 +29,16 @@ public class Game {
     //                   A  B  C  D  E  F  G  H
     //               0-63 chessboard representation
     //   State = model | ClickHandler = controller | View = view
+
+    public static void updateAllBlackMoves(boolean filter){
+        for(int i = 0; i < 16; i++){
+            Game.state.pieces[i].generateMoves(filter);
+        }
+    }
+
+    public static void updateAllWhiteMoves(boolean filter) {
+        for(int i = 16; i < 32; i++){
+            Game.state.pieces[i].generateMoves(filter);
+        }
+    }
 }

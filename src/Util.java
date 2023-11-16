@@ -112,7 +112,7 @@ public class Util {
     };
 
 
-    public static List<Integer> filterMoves(List<Integer> moves, Piece p) {
+    public static List<Integer> filterMoves(List<Integer> moves, Piece p, boolean filter) {
 
         // Filter moves outside the board + moves with friendly pieces
         for (int i = moves.size() - 1; i >= 0; i--) {
@@ -139,7 +139,32 @@ public class Util {
 
         Continue step 1-6 for all the state.pieces.moves
          */
+        if(filter) {
+            State snapshot = new State();
+            snapshot.pieces = Game.state.deepClone();
 
+            for (int m : p.moves) {
+
+                if (p.isWhite()) {
+                    p.move(m);
+                    Game.updateAllBlackMoves(false);
+                    for (int i = 0; i < 16; i++) {
+                        if (Game.state.pieces[i].moves.contains(Game.state.pieces[20].position)) {
+                            p.moves.remove(m);
+                        }
+                    }
+                } else {
+                    p.move(m);
+                    Game.updateAllWhiteMoves(false);
+                    for (int i = 16; i < 32; i++) {
+                        if (Game.state.pieces[i].moves.contains(Game.state.pieces[4].position)) {
+                            p.moves.remove(m);
+                        }
+                    }
+                }
+                Game.state.pieces = snapshot.deepClone();
+            }
+        }
         return moves;
     }
 }

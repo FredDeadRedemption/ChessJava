@@ -7,7 +7,7 @@ public class Pawn extends Piece{
         super(position, type);
     }
 
-    public void generateMoves(){
+    public void generateMoves(boolean filter){
 
         List<Integer> moves = new ArrayList<>();
         int pawnAttackLeft;
@@ -48,7 +48,7 @@ public class Pawn extends Piece{
             moves.add(this.position + pawnAttackRight);
         }
 
-        this.moves = Util.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this, filter);
     }
 
     @Override

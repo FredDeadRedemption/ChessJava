@@ -6,7 +6,7 @@ public class Knight extends Piece {
         super(position, type);
     }
 
-    public void generateMoves() {
+    public void generateMoves(boolean filter) {
 
         List<Integer> moves = new ArrayList<>();
 
@@ -28,6 +28,6 @@ public class Knight extends Piece {
             }
         }
 
-        this.moves = Util.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this, filter);
     }
 }

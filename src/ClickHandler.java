@@ -23,7 +23,7 @@ public class ClickHandler {
             // assign first clicked piece
             firstClickedPiece = clickedPiece;
             // generate moves
-            clickedPiece.generateMoves();
+            clickedPiece.generateMoves(true);
             // animate moves
             Game.view.animateMoves(clickedPiece);
             // flip click

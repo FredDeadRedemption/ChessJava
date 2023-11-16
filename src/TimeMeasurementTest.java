@@ -5,7 +5,7 @@ public class TimeMeasurementTest {
             long startTime = System.currentTimeMillis(); // or System.nanoTime()
             // start
             for(int i = 0; i < Game.state.pieces.length; i++){
-                Game.state.pieces[i].generateMoves();
+                Game.state.pieces[i].generateMoves(false);
             }
             // end
             long endTime = System.currentTimeMillis();

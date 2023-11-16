@@ -6,7 +6,7 @@ public class King extends Piece{
         super(position, type);
     }
 
-    public void generateMoves() {
+    public void generateMoves(boolean filter) {
 
         List<Integer> moves = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class King extends Piece{
             }
         }
 
-        this.moves = Util.filterMoves(moves, this);
+        this.moves = Util.filterMoves(moves, this, filter);
     }
 
     @Override
