@@ -48,9 +48,8 @@ public class State {
         this.pieces[31] = new Pawn(15, "P");
     }
 
-    // the idea is to be able to take a snapshot of the game state. making it easier to search depths and calculate inCheck()
-    // without having to make an unMove method
-    // TODO: this is expensive af so maybe just make a class for moves and make move.unmake()
+    // the idea is to be able to take a snapshot of the game state.
+    // TODO: this is stupid
     public Piece[] deepClone() {
 
         Piece[] clonedState = new Piece[this.pieces.length];

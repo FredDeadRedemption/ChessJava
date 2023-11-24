@@ -31,19 +31,19 @@ public class Pawn extends Piece{
             fileRight = 0;
         }
 
-        //moving forward twice
+        // moving forward twice
         if (!this.hasMoved && !Util.hasOccupant(this.position + pawnMoveForward * 2) && !Util.hasOccupant(this.position + pawnMoveForward)) {
             moves.add(this.position + pawnMoveForward * 2);
         }
-        //moving forward once
+        // moving forward once
         if (!Util.hasOccupant(this.position + pawnMoveForward)) {
             moves.add(this.position + pawnMoveForward);
         }
-        //attacking left
+        // attacking left
         if (Util.hasEvilOccupant(this.position + pawnAttackLeft, this) && this.position % 8 != fileLeft) {
             moves.add(this.position + pawnAttackLeft);
         }
-        //attacking right
+        // attacking right
         if (Util.hasEvilOccupant(this.position + pawnAttackRight, this) && this.position % 8 != fileRight) {
             moves.add(this.position + pawnAttackRight);
         }
@@ -73,7 +73,7 @@ public class Pawn extends Piece{
         }
     }
 
-    public int getIndexInState() {
+    private int getIndexInState() {
         for (int i = 0; i < Game.state.pieces.length; i++) {
             if (this.equals(Game.state.pieces[i])) {
                 return i;

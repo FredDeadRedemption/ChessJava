@@ -65,6 +65,7 @@ public class Util {
         };
     }
 
+    // TODO: use these lookup tables to represent board-state instead
     public static final byte[] BOTTOM_EDGE = {
             1, 1, 1, 1, 1, 1, 1, 1,
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -127,7 +128,7 @@ public class Util {
 
         step 2. make a moves from the piece.moves list
 
-        step 3. update opposing pieces moves (without filtering moves the check their own king.. stack overflow)
+        step 3. update opposing pieces moves (without filtering moves the check their own king)
 
         step 4. if the king is now in check remove the move that was made from the moves list
 
