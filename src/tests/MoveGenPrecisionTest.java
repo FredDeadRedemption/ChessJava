@@ -1,3 +1,5 @@
+// Frederik Højland
+// fn18gu@student.aau.dk
 package tests;
 
 import org.junit.Test;

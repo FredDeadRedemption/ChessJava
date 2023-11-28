@@ -1,3 +1,5 @@
+// Frederik Højland
+// fn18gu@student.aau.dk
 package main;
 import javax.swing.*;
 
