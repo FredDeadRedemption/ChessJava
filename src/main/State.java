@@ -1,3 +1,7 @@
+package main;
+
+import main.*;
+
 import java.util.ArrayList;
 
 public class State {

@@ -1,8 +1,12 @@
+package main;
+
+import main.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Pawn extends Piece{
+public class Pawn extends Piece {
     public Pawn(int position, String type) {
         super(position, type);
     }

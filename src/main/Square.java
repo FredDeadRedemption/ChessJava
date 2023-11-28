@@ -1,3 +1,5 @@
+package main;
+
 public class Square {
         int x;
         int y;

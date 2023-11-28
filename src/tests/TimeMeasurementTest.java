@@ -1,11 +1,14 @@
+package tests;
+import main.Piece ;
+
 public class TimeMeasurementTest {
 
-        public static void run(){
+        public void run(Piece[] pieces){
 
             long startTime = System.currentTimeMillis(); // or System.nanoTime()
             // start
-            for(int i = 0; i < Game.state.pieces.length; i++){
-                Game.state.pieces[i].generateMoves();
+            for (Piece piece : pieces) {
+                piece.generateMoves();
             }
             // end
             long endTime = System.currentTimeMillis();

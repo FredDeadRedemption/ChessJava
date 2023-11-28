@@ -1,3 +1,9 @@
+package main;
+
+import main.Controller;
+import main.CustomPanel;
+import main.Piece;
+
 import javax.swing.*;
 import java.io.IOException;
 

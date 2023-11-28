@@ -1,3 +1,5 @@
+package main;
+
 public class Controller {
 
     public static void handleClick(int clickedSquare) {

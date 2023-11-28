@@ -1,7 +1,11 @@
+package main;
+
+import main.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class King extends Piece{
+public class King extends Piece {
     public King(int position, String type) {
         super(position, type);
     }

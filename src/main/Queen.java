@@ -1,10 +1,18 @@
+package main;
+
+import main.Piece;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends Piece{
-    public Rook(int position, String type) {
+public class Queen extends Piece {
+    public Queen(int position, String type) {
         super(position, type);
 
+        this.offsets.add(7);
+        this.offsets.add(-7);
+        this.offsets.add(9);
+        this.offsets.add(-9);
         this.offsets.add(8);
         this.offsets.add(-8);
         this.offsets.add(1);

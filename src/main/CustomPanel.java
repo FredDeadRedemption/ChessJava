@@ -1,3 +1,7 @@
+package main;
+
+import main.Game;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

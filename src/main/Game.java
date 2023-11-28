@@ -1,3 +1,7 @@
+package main;
+
+import tests.TimeMeasurementTest;
+
 import java.io.IOException;
 
 public class Game {
@@ -11,7 +15,9 @@ public class Game {
 
         view = new View();
 
-        TimeMeasurementTest.run();
+        TimeMeasurementTest timeMeasurementTest = new TimeMeasurementTest();
+
+        timeMeasurementTest.run(state.deepClone());
     }
 
     //                     Ladies and Gents,
