@@ -1,14 +1,12 @@
 package main;
 
-import main.*;
-
 import java.util.ArrayList;
 
 public class State {
 
-    boolean whiteToMove = true; // flips on successful move
+    public boolean whiteToMove = true; // flips on successful move
 
-    Piece[] pieces = new Piece[32]; // contains all pieces in game
+    public Piece[] pieces = new Piece[32]; // contains all pieces in game
 
     public State() {
         reset();
@@ -53,7 +51,7 @@ public class State {
     }
 
     // the idea is to be able to take a snapshot of the game state.
-    // TODO: this is stupid
+    // TODO: this is stupid should represent game state in a couple integers and make all pieces a static move-gen class
     public Piece[] deepClone() {
 
         Piece[] clonedState = new Piece[this.pieces.length];

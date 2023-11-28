@@ -1,7 +1,5 @@
 package main;
 
-import main.Game;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,20 +19,24 @@ public class CustomPanel extends JPanel {
     int homeSquareAnimation; // home square to paint
     boolean animationsFlag; // when false, only the board will be painted
 
-    public CustomPanel() throws IOException {
+    public CustomPanel() {
 
         // set 8x8 layout
         setLayout(new GridLayout(8, 8));
 
         // load sub-images from spritesheet
-        BufferedImage all = ImageIO.read(new File("src/chess.png"));
-        spriteSheet = new Image[12];
-        int index=0;
-        for(int y=0;y<400;y+=200){
-            for(int x=0;x<1200;x+=200){
-                spriteSheet[index] = all.getSubimage(x, y, 200, 200).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
-                index++;
+        try {
+            BufferedImage all = ImageIO.read(new File("src/chess.png"));
+            spriteSheet = new Image[12];
+            int index=0;
+            for(int y=0; y<400; y+=200){
+                for(int x=0; x<1200; x+=200){
+                    spriteSheet[index] = all.getSubimage(x, y, 200, 200).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
+                    index++;
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -102,7 +104,8 @@ public class CustomPanel extends JPanel {
     }
 
     // maps bitboard to pixels
-    private static final Square[] animationLookupTable = { // TODO: make this a static List<Map<Integer, Integer>>>
+    // TODO: make this a static List<Map<Integer, Integer>>> or a method
+    private static final Square[] animationLookupTable = {
             new Square(0, 7),
             new Square(1, 7),
             new Square(2, 7),

@@ -1,7 +1,5 @@
 package main;
 
-import main.Piece;
-
 import java.util.ArrayList;
 import java.util.List;
 

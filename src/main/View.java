@@ -1,16 +1,10 @@
 package main;
-
-import main.Controller;
-import main.CustomPanel;
-import main.Piece;
-
 import javax.swing.*;
-import java.io.IOException;
 
 public class View {
     CustomPanel panel;
     JFrame frame;
-    public View() throws IOException {
+    public View(){
         // Jframe
         frame = new JFrame();
         frame.setBounds(10, 10, 526, 549);

@@ -1,23 +1,23 @@
 package main;
 
+import tests.MoveGenPrecisionTest;
 import tests.TimeMeasurementTest;
-
-import java.io.IOException;
 
 public class Game {
 
     public static View view;
     public static State state;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         state = new State();
 
         view = new View();
 
-        TimeMeasurementTest timeMeasurementTest = new TimeMeasurementTest();
+        TimeMeasurementTest.run(state.deepClone());
 
-        timeMeasurementTest.run(state.deepClone());
+        MoveGenPrecisionTest precisionTest = new MoveGenPrecisionTest();
+        precisionTest.run();
     }
 
     //                     Ladies and Gents,
@@ -34,5 +34,4 @@ public class Game {
     //                └─────────────────────────┘
     //                   A  B  C  D  E  F  G  H
     //               0-63 chessboard representation
-    //
 }

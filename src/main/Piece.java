@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Piece {
-    int position; // 0-63 bitboard position
+
+    public int position; // 0-63 bitboard position
+
     List<Integer> offsets; // to determine move pattern
-    List<Integer> moves; // TODO: maybe delete this make a moves class
+
+    public List<Integer> moves; // TODO: maybe delete this make a moves class
+
     String type; // P="white pawn" p="black pawn" N="white knight" k="black king"...
+
     boolean hasMoved; // for castling rights & double pawn moves
+
     boolean hasBeenSlaughtered; // for castling rights & rendering // TODO: just delete the piece object itself from the state array maybe
+
     public Piece(int position, String type){
         this.position = position;
         this.type = type;
